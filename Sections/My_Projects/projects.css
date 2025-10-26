@@ -17,6 +17,12 @@ body {
   font-family: "Inter";
 }
 
+a,
+a:visited {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 /* ----- Navbar section ------- */
 header {
   position: sticky;
@@ -61,6 +67,7 @@ nav .active {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
 }
+
 /* ----------------------------- */
 
 /* ----- Ongoing Projects section ------- */
@@ -144,6 +151,8 @@ nav .active {
   align-items: center;
   justify-content: center;
   gap: 3.33dvw;
+
+  transition: width height 800ms ease;
 }
 
 .ongoing-project .project-card {
@@ -155,13 +164,24 @@ nav .active {
   gap: 0.5dvw;
 
   border-radius: 2.22dvw;
+  border: solid 2px transparent;
   background: rgba(185, 185, 185, 0.3);
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(18px);
+
+  transition: border 800ms ease;
 }
 
 .ongoing-project .project-card.active {
   width: 18.3%;
+}
+
+.ongoing-project .project-card:hover {
+  border: solid 2px #8cc53e;
+}
+
+.ongoing-project .project-card.active:hover {
+  border: solid 2px transparent;
 }
 
 .ongoing-project .project-card .content {
@@ -220,6 +240,14 @@ nav .active {
   font-size: 0.67rem;
 }
 
+.ongoing-project .project-card .button-primary {
+  display: none;
+}
+
+.ongoing-project .project-card.active .button-primary {
+  display: flex;
+}
+
 .button-primary {
   width: calc(100% - 2rem);
   display: flex;
@@ -264,4 +292,86 @@ nav .active {
   height: 120%;
   background-color: #8cc53e;
 }
+
 /* -------------------------------------- */
+
+/* -------- Your Project Section ---------*/
+
+/* -------------------------------------- */
+
+/* -------- Footer Section --------- */
+footer {
+  width: calc(100%+10dvw);
+  margin: 0px -5dvw;
+  background-color: #1a1a1a;
+  padding: 40px 24px;
+}
+
+.footer-container {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  margin-bottom: 20px;
+}
+
+.footer-column h3 {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+  margin: 5px 0;
+  transition: color 0.3s;
+}
+
+.footer-column a:hover {
+  color: #fff;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.footer-social a {
+  background-color: #2a2a2a;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.footer-social a:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+.footer-social img {
+  width: 30px;
+  height: 30px;
+  display: block;
+  object-fit: contain;
+  margin: auto;
+}
+
+/* --------------------------------- */
