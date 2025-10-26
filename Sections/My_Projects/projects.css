@@ -1,0 +1,74 @@
+* {
+  font-family: "Inter";
+}
+
+body {
+  background-color: white;
+  width: 100dvw - 144px;
+  height: 100dvh;
+  margin: 0;
+  padding: 32px 72px;
+}
+
+/* ----- Navbar section ------- */
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  align-items: center;
+  width: 100%;
+  height: min-content;
+}
+
+nav img {
+  width: 82px;
+  height: auto;
+}
+
+nav ul {
+  justify-content: flex-end;
+  flex-grow: 1;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+nav ul li {
+  font-size: 20px;
+  color: #000000;
+  cursor: pointer;
+}
+
+nav ul li:hover {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+nav .active {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+/* ----------------------------- */
+
+/* ----- Ongoing Projects section ------- */
+#ongoing-project-view {
+  margin-top: 32x;
+}
+
+#ongoing-project-view .content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#ongoing-project-view .content .heading {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+}
+
+/* -------------------------------------- */
