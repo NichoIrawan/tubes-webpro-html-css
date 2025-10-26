@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #000;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid #000;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.btn-green {
+  background-color: #8fd35a;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-green:hover {
+  background-color: #7dc44d;
+}
+
+.hero-image img {
+  width: 550px;
+  max-width: 100%;
+}
+/* How It Works Section */
+.how-it-works {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 80px 8%;
+  gap: 60px;
+}
+
+.how-img img {
+  width: 700px;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.how-text {
+  max-width: 420px;
+}
+
+.how-text h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Steps Container */
+.steps-container {
+  display: flex;
+  position: relative;
+}
+
+.vertical-line {
+  width: 2px;
+  background-color: #d9d9d9;
+  height: auto;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Step styling */
+.step {
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.step.active h3 {
+  font-size: 1.2rem;
+  color: #000;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.step.active p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.step.active .badge {
+  display: inline-block;
+  background-color: #b3e291;
+  color: #000;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.step span {
+  color: #777;
+  margin-right: 5px;
+}
+
+/* Get Started Button */
+.btn-outline {
+  border: 2px solid #000;
+  background: none;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 25px;
+}
+
+.btn-outline:hover {
+  background: #000;
+  color: #fff;
+}
+
+
+/* Portfolio Section */
+.portfolio {
+  padding: 80px 8%;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.portfolio h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-top: 15px;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 10px 20px 25px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
