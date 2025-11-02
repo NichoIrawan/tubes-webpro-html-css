@@ -1,9 +1,10 @@
 * {
   margin: 0;
+  line-height: 120%;
 }
 
 html {
-  font-size: clamp(1.5 rem, 1.67dvw, 2.5 rem);
+  font-size: 1.67dvw;
 }
 
 body {
@@ -33,21 +34,20 @@ header {
 }
 
 nav {
-  height: calc(80px - 4.44dvw);
-  padding: 2.22dvw 5dvw;
+  height: 6.11dvw;
+  width: 100%;
+  padding: 1.11dvw 5dvw;
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
   align-items: center;
-  width: 100%;
   height: min-content;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(1.11rem);
 }
 
 nav img {
-  width: 4.44dvw;
-  height: auto;
+  height: 4dvw;
 }
 
 nav ul {
@@ -60,7 +60,7 @@ nav ul {
 }
 
 nav ul li {
-  font-size: 0.85rem;
+  font-size: 0.67rem;
   color: #000000;
   cursor: pointer;
 }
@@ -79,7 +79,7 @@ nav .active {
 
 /* ----- Ongoing Projects section ------- */
 #ongoing-project-view {
-  margin-top: calc(80px);
+  margin-top: 5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -311,34 +311,37 @@ nav .active {
   display: flex;
   flex-direction: row;
   padding: 3.33dvw 2.22dvw;
-
-  justify-content: space-between;
+  gap: 20%;
 }
 
 #your-projects h2 {
-  font-size: 2.22rem;
+  font-size: 1.33rem;
   font-weight: 800;
   margin-bottom: 2.22dvw;
   color: #111;
 }
 
 .projects-container {
-  flex: 0.4;
+  flex: 3;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
+  position: sticky;
+  top: calc(5rem + 2.22dvw);
+  align-self: flex-start;
 }
 
 .project-preview {
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2dvw;
 }
 
 .project-preview img {
-  width: 320px;
+  width: 12rem;
   max-width: 100%;
-  height: auto;
-  margin-bottom: 1.67dvw;
 }
 
 .project-tags {
@@ -351,22 +354,17 @@ nav .active {
 
 .tag {
   display: flex;
-  padding: 12px 24px;
+  padding: 0.5rem 1rem;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0.4rem;
   border-radius: 720px;
-  border: 4px solid #8cc53e;
+  border: 0.15rem solid #8cc53e;
   background-color: transparent;
-
   color: #8cc53e;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: bold;
-
-  padding: 0.4rem 0.8rem;
-  border-radius: 720px;
-  font-size: 0.85rem;
   cursor: pointer;
 }
 
@@ -376,7 +374,8 @@ nav .active {
 }
 
 .project-list-right {
-  flex: 0.4;
+  height: min-content;
+  flex: 4;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -417,23 +416,33 @@ nav .active {
 }
 
 .project-card-right .meta {
-  height: 56px;
+  height: 2.4rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
-  text-align: center;
-  gap: 0.5rem;
+  align-items: start;
+  justify-content: space-between;
+  text-align: start;
 }
 
 .project-card-right .meta img {
-  height: 100%;
+  height: 120%;
   border-radius: 8px;
 }
 
 .project-card-right .meta h3 {
-  margin: 0 0 4px 0;
+  width: calc(100% - 3rem);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: nowrap;
   font-size: 1rem;
+}
+
+.project-card-right .meta p {
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .project-card-right .button-primary {
@@ -441,7 +450,7 @@ nav .active {
   padding: 16px 24px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   align-self: stretch;
 
   text-align: center;
@@ -459,7 +468,6 @@ nav .active {
 /* -------- Footer Section --------- */
 .modern-footer {
   position: relative;
-  width: calc(100% + 10dvw- 6.67dvw);
   padding: 6.67dvw;
   margin: 0 -5dvw;
   background-color: #333333;
@@ -477,20 +485,21 @@ nav .active {
 
 .footer-section h4 {
   color: white;
-  font-size: 1.11rem;
+  font-size: 0.8rem;
   margin-bottom: 1.11dvw;
   font-weight: 600;
 }
 .company-name {
   color: #8cc55a;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
 }
 
 .company-desc {
   color: #868686;
   line-height: 1.5;
+  font-size: 0.7rem;
 }
 
 .footer-section ul {
@@ -500,13 +509,14 @@ nav .active {
 }
 
 .footer-section ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .footer-section ul a {
   color: #868686;
   text-decoration: none;
   transition: color 0.3s ease;
+  font-size: 0.7rem;
 }
 
 .footer-section ul a:hover {
@@ -546,8 +556,8 @@ nav .active {
 }
 
 .social-icon img {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .footer-bottom {
@@ -581,17 +591,17 @@ nav .active {
   }
 
   .company-name {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .footer-section h4 {
-    font-size: 1.2rem;
+    font-size: 0.85rem;
   }
 
   .footer-section ul a,
   .company-desc,
   .contact-info li,
   .footer-bottom {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 } /* --------------------------------- */
