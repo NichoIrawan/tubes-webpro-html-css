@@ -88,7 +88,7 @@ class NavigationBar extends HTMLElement {
                     <li class="${this.isActive("/Portfolio")}">
                         <a href="/Sections/Portfolio/page.html">Portfolio</a>
                     </li>
-                    <li class="${this.isActive("/Services")}">
+                    <li class="${this.isActive("/Services_page")}">
                         <a href="/Sections/Service_page/service.html">Services</a>
                     </li>
                     <li class="${this.isActive("/About_Us")}">
