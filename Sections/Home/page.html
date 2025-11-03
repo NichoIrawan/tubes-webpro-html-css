@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/Components/chat.js" defer></script>
   <title>CEMA Design</title>
   <link rel="stylesheet" href="home.css" />
 </head>
 <body>
   <!-- Navbar -->
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="/Assets/Cema_Logo.png" alt="CEMA Logo" />
-      </div>
-      <ul class="nav-links">
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">My Project</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Account</a></li>
-      </ul>
-    </nav>
-  </header>
-
+   <navigation-bar></navigation-bar>
+  <!-- <header>
+        <nav>
+            <img src="/Assets/Cema_Logo.png" alt="Cema Logo">
+            <ul>
+                <li class="active"><a href="#" aria-current="page">Home</a></li>
+                <li><a href="/Sections/My_Projects/page.html">My Project</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="/Sections/Contact_Us/page.html">Contact Us</a></li>
+                <li><a href="#">Account</a></li>
+            </ul>
+        </nav>
+    </header> --> 
+  <!-- Hero Section -->  
   <section class="hero">
     <div class="hero-text">
       <h1>We leverage technology<br>to simplify and improve<br>the way you work</h1>
@@ -71,53 +71,98 @@
     <button class="btn-outline">Get Started</button>
   </div>
 </section>
-
-
   <section class="portfolio">
     <h2>Portofolio</h2>
     <div class="portfolio-grid">
       <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 1" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
-      <div class="card active">
+      <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 2" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
       <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 3" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
       <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 4" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
       <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 5" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
       <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 6" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
-      <div class="card active">
+      <div class="card">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 7" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
       <div class="card active">
         <img src="/Assets/imageLivingRoom.png" alt="Portfolio 8" />
-        <h3>Title</h3>
+        <h3>Portofolio</h3>
+        <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+      </div>
+      <div class="card">
+        <img src="/Assets/imageLivingRoom.png" alt="Portfolio 9" />
+        <h3>Portofolio</h3>
         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
       </div>
     </div>
   </section>
-
+          <footer>
+            <div class="footer-container">
+              <div class="footer-column">
+                <h3>About Us</h3>
+                <a href="#">Our Story</a>
+                <a href="#">News</a>
+                <a href="#">Blog</a>
+                <a href="#">Privacy</a>
+                <a href="#">User Agreement</a>
+                <a href="#">Updates</a>
+                <a href="#">Contact Us</a>
+              </div>
+          
+              <div class="footer-column">
+                <h3>About Us</h3>
+                <a href="#">Our Story</a>
+                <a href="#">News</a>
+                <a href="#">Blog</a>
+                <a href="#">Privacy</a>
+                <a href="#">User Agreement</a>
+                <a href="#">Updates</a>
+                <a href="#">Contact Us</a>
+              </div>
+          
+              <div class="footer-column">
+                <h3>About Us</h3>
+                <a href="#">Our Story</a>
+                <a href="#">News</a>
+                <a href="#">Blog</a>
+                <a href="#">Privacy</a>
+                <a href="#">User Agreement</a>
+                <a href="#">Updates</a>
+                <a href="#">Contact Us</a>
+          
+                <div class="footer-social">
+                    <a href="#"><img src="/Assets/email.png" alt="logo-email"></a>
+                    <a href="#"><img src="/Assets/wa.png" alt="logo-wa"></a>
+                    <a href="#"><img src="/Assets/ig.png" alt="logo-ig"></a>
+                  </div>                  
+                  
+            </div>
+          </footer>
+  <script type="module" src="home.js"></script>
 </body>
 </html>
