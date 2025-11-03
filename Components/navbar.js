@@ -51,7 +51,7 @@ class NavigationBar extends HTMLElement {
                 }
 
                 nav ul li {
-                    font-size: 0.67rem;
+                    font-size: 1rem;
                     color: #000000;
                     cursor: pointer;
                 }
