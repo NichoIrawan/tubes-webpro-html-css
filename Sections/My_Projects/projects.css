@@ -3,19 +3,16 @@
   line-height: 120%;
 }
 
-html {
-  /* font-size: clamp(1rem, 1.67dvw, 1.5rem); */
-}
-
 body {
   background-color: white;
-  padding: 2.22dvw 5dvw 0dvw 5dvw;
+  font-family: "Inter";
+}
 
+.content {
   display: flex;
   flex-direction: column;
+  padding: 2.22dvw 5dvw 0dvw 5dvw;
   gap: 3.33dvw;
-
-  font-family: "Inter";
 }
 
 a,
