@@ -273,12 +273,11 @@ class FooterComponent extends HTMLElement {
                 </div>
 
                 <div class="footer-bottom">
-                    &copy; 2012 Cema Construction. All rights reserved.
+                    &copy; 2025 Cema Construction. All rights reserved.
                 </div>
             </footer>
         `;
   }
 }
 
-// Register the custom element
 customElements.define("footer-component", FooterComponent);
