@@ -11,19 +11,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <img src="/Assets/Cema_Logo.png" alt="Cema Logo">
-            <ul>
-                <li><a href="/Sections/Home/page.html">Home</a></li>
-                <li class="active"><a href="#" aria-current="page">My Project</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="/Sections/Contact_Us/page.html">Contact Us</a></li>
-                <li><a href="#">Account</a></li>
-            </ul>
-        </nav>
-    </header>
+    <navigation-bar></navigation-bar>
 
     <section id="ongoing-project-view">
         <img src="/Assets/Project_BG.png" class="bg-image" alt="Ongoing Project">
@@ -64,39 +52,45 @@
 
     <footer class="modern-footer">
         <div class="footer-content">
+            <!-- Company Info -->
             <div class="footer-section">
                 <h3 class="company-name">Company X</h3>
                 <p class="company-desc">Solusi terpercaya untuk arsitektur dan desain interior Anda.</p>
             </div>
 
+            <!-- Quick Links -->
             <div class="footer-section">
                 <h4>Link Cepat</h4>
                 <ul>
-                    <li><a href="/Sections/Home/page.html">Beranda</a></li>
-                    <li><a href="#">Layanan</a></li>
+                    <li><a href="/Sections/Home/page.html">Home</a></li>
                     <li><a href="#">Portfolio</a></li>
-                    <li><a href="/Sections/Contact_Us/page.html">Kontak</a></li>
+                    <li><a href="#" class="active">My Project</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="/Sections/Contact_Us/page.html">Contact Us</a></li>
                 </ul>
             </div>
 
+            <!-- Contact Info -->
             <div class="footer-section">
                 <h4>Kontak</h4>
                 <ul class="contact-info">
                     <li>
-                        <span class="icon">📞</span>
+                        <i class="icon phone-icon"></i>
                         <span>+62 812-3456-7890</span>
                     </li>
                     <li>
-                        <span class="icon">✉️</span>
+                        <i class="icon email-icon"></i>
                         <span>info@companyx.com</span>
                     </li>
                     <li>
-                        <span class="icon">📍</span>
+                        <i class="icon map-icon"></i>
                         <span>Jl. Contoh No. 123, Jakarta, Indonesia</span>
                     </li>
                 </ul>
             </div>
 
+            <!-- FAQ & Social -->
             <div class="footer-section">
                 <h4>FAQ</h4>
                 <ul class="faq-links">
@@ -108,13 +102,13 @@
                 <h4 class="social-heading">Ikuti Kami</h4>
                 <div class="social-links">
                     <a href="#" class="social-icon">
-                        <img src="/Assets/facebook.png" alt="Facebook">
+                        <i class="icon facebook-icon"></i>
                     </a>
                     <a href="#" class="social-icon">
-                        <img src="/Assets/email.png" alt="Instagram">
+                        <i class="icon instagram-icon"></i>
                     </a>
                     <a href="#" class="social-icon">
-                        <img src="/Assets/wa.png" alt="Twitter">
+                        <i class="icon twitter-icon"></i>
                     </a>
                 </div>
             </div>
@@ -126,6 +120,7 @@
     </footer>
 
     <script src='projects.js'></script>
+    <script type="module" src='main.js'></script>
 </body>
 
 </html>

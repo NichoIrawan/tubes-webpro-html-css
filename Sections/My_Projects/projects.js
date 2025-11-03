@@ -1,4 +1,3 @@
-// Function to get status class
 const getStatusClass = (status) => {
   switch (status) {
     case "DONE":
@@ -71,7 +70,6 @@ const getProjectTypeIcon = (type) => {
 
 let windowStart = 0;
 
-// Function to render 3 ongoing projects window
 function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
   const ongoingProjectList = document.getElementById("ongoing-project-list");
   const indicatorList = document.getElementById(
