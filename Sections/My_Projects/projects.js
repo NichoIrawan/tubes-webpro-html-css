@@ -147,7 +147,7 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     // Fetch projects data
-    const response = await fetch("/Data/projects.json");
+    const response = await fetch("/data/projects.json");
     const data = await response.json();
     const projects = data.projects;
 
