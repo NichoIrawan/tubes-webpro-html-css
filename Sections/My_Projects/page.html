@@ -7,11 +7,52 @@
     <title>CEMA</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='projects.css'>
-    <script src='projects.js'></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 
 <body>
+    <navigation-bar></navigation-bar>
 
+    <section id="ongoing-project-view">
+        <img src="/Assets/Project_BG.png" class="bg-image" alt="Ongoing Project">
+        <div class="heading">
+            <div class="menu">
+                <hr>
+                <h2>MENU</h2>
+                <hr>
+            </div>
+            <h1>Project View</h1>
+            <p>Track all your projects from one Dashboard</p>
+        </div>
+        <img src="/Assets/Mouse_Scroll.png" style="width: 3.7%;" alt="Mouse_Scroll">
+        <div class="ongoing-project">
+            <h2>Ongoing Project</h2>
+            <div class="project-list" id="ongoing-project-list"></div>
+            <div class="indicator-list" id="ongoing-project-list-indicator"></div>
+        </div>
+    </section>
+
+    <section id="your-projects">
+        <div class="projects-container">
+            <h2>Your Projects</h2>
+            <div class="project-preview">
+                <img src="/Assets/Project_House_Illustration.png" alt="Project Preview Illustration">
+                <div class="project-tags">
+                    <button class="tag active" value="all">All</button>
+                    <button class="tag" value="ongoing">Ongoing</button>
+                    <button class="tag" value="retention">Retention</button>
+                    <button class="tag" value="cancelled">Cancelled</button>
+                    <button class="tag" value="completed">Completed</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="project-list-right"></div>
+    </section>
+
+    <footer-component></footer-component>
+
+    <script type='module' src='projects.js'></script>
 </body>
 
 </html>

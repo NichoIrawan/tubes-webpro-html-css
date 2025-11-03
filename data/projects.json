@@ -1,0 +1,92 @@
+{
+  "projects": [
+    {
+      "id_proyek": "PRJ0001",
+      "id_klien": "CLT0001",
+      "id_admin": "ADM0001",
+      "id_lokasi": "LOC0001",
+      "nama_proyek": "Renovasi Rumah Modern Menteng",
+      "status": "IN_CONSTRUCTION",
+      "harga_jasa": 250000000,
+      "jenis_proyek": "RUMAH",
+      "jenis_jasa": "DESIGN_CONSTRUCT"
+    },
+    {
+      "id_proyek": "PRJ0002",
+      "id_klien": "CLT0002",
+      "id_admin": "ADM0001",
+      "id_lokasi": "LOC0002",
+      "nama_proyek": "Interior Design Apartment Pakubuwono",
+      "status": "CONFIRMATION",
+      "harga_jasa": 75000000,
+      "jenis_proyek": "APARTMENT",
+      "jenis_jasa": "DESIGN"
+    },
+    {
+      "id_proyek": "PRJ0003",
+      "id_klien": "CLT0003",
+      "id_admin": "ADM0002",
+      "id_lokasi": "LOC0003",
+      "nama_proyek": "Pembangunan Ruko 3 Lantai",
+      "status": "PAYMENT",
+      "harga_jasa": 1500000000,
+      "jenis_proyek": "KOMERSIL",
+      "jenis_jasa": "CONSTRUCT_ONLY"
+    },
+    {
+      "id_proyek": "PRJ0004",
+      "id_klien": "CLT0004",
+      "id_admin": "ADM0002",
+      "id_lokasi": "LOC0004",
+      "nama_proyek": "Renovasi Coffee Shop",
+      "status": "DONE",
+      "harga_jasa": 350000000,
+      "jenis_proyek": "KOMERSIL",
+      "jenis_jasa": "DESIGN_CONSTRUCT"
+    },
+    {
+      "id_proyek": "PRJ0005",
+      "id_klien": "CLT0005",
+      "id_admin": "ADM0001",
+      "id_lokasi": "LOC0005",
+      "nama_proyek": "Design Interior Apartment Sudirman",
+      "status": "CANCELLED",
+      "harga_jasa": 45000000,
+      "jenis_proyek": "APARTMENT",
+      "jenis_jasa": "DESIGN"
+    },
+    {
+      "id_proyek": "PRJ0006",
+      "id_klien": "CLT0006",
+      "id_admin": "ADM0003",
+      "id_lokasi": "LOC0006",
+      "nama_proyek": "Pembangunan Rumah 2 Lantai",
+      "status": "RETENTION",
+      "harga_jasa": 800000000,
+      "jenis_proyek": "RUMAH",
+      "jenis_jasa": "DESIGN_CONSTRUCT"
+    },
+    {
+      "id_proyek": "PRJ0007",
+      "id_klien": "CLT0007",
+      "id_admin": "ADM0001",
+      "id_lokasi": "LOC0002",
+      "nama_proyek": "Test",
+      "status": "CONFIRMATION",
+      "harga_jasa": 75000000,
+      "jenis_proyek": "APARTMENT",
+      "jenis_jasa": "DESIGN"
+    },
+    {
+      "id_proyek": "PRJ0007",
+      "id_klien": "CLT0007",
+      "id_admin": "ADM0001",
+      "id_lokasi": "LOC0002",
+      "nama_proyek": "Test2",
+      "status": "CONFIRMATION",
+      "harga_jasa": 75000000,
+      "jenis_proyek": "APARTMENT",
+      "jenis_jasa": "DESIGN"
+    }
+  ]
+}
