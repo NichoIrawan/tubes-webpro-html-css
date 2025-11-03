@@ -221,7 +221,16 @@ a:visited {
 .button-primary img {
   height: 1.67rem;
   width: 1.67rem;
-  color: #fff;
+}
+
+.button-primary.white-arrow img {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%)
+    contrast(103%);
+}
+
+.button-primary.black-arrow img {
+  filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(93deg) brightness(0%)
+    contrast(103%);
 }
 
 .indicator-list {
