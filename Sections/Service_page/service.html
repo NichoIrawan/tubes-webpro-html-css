@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - CemaDesign</title>
+    <link rel="stylesheet" href="service.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="service-badge">Layanan Kami</span>
+                    <h1>Solusi Lengkap untuk Kebutuhan Desain & Konstruksi</h1>
+                    <p>Dari konsep hingga realisasi, kami menyediakan layanan profesional untuk mewujudkan ruang impian Anda</p>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="search-box">
+                    <div class="search-input">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Cari layanan yang Anda butuhkan..." id="searchInput">
+                    </div>
+
+                    <div class="kategori-section">
+                        <div class="kategori-label">Kategori:</div>
+                        <div class="filter-buttons" id="categoryFilters"></div>
+                    </div>
+
+                    <div class="results-count" id="resultsCount">
+                        Menampilkan 3 dari 3 layanan
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Services -->
+        <section class="popular-services" id="popularServicesSection">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Layanan Paling Banyak Dipilih</h2>
+                </div>
+
+                <div class="services-grid" id="popularServices">
+                    <!-- Popular services will be added dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- All Services -->
+        <section class="other-services">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Layanan Lainnya</h2>
+                    <p>Temukan layanan yang sesuai dengan kebutuhan Anda</p>
+                </div>
+                
+                <div id="noResults" class="no-results hidden">
+                    <div class="message">Tidak ada layanan ditemukan</div>
+                    <p>Coba ubah filter atau kata kunci pencarian Anda</p>
+                    <button class="reset-button" id="resetFilters">Reset Filter</button>
+                </div>
+                
+                <div class="services-grid" id="regularServices">
+                    <!-- Regular services will be added dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Mengapa Memilih CemaDesign?</h2>
+                    <p>Kami berkomitmen memberikan layanan terbaik dengan standar profesional tinggi</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="../../Assets/icons/graph.svg" alt="Pengalaman Icon">
+                        </div>
+                        <h3>Pengalaman Terpercaya</h3>
+                        <p>Lebih dari 10 tahun pengalaman dalam industri desain dan konstruksi</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="../../Assets/icons/star.svg" alt="Kualitas Icon">
+                        </div>
+                        <h3>Kualitas Terjamin</h3>
+                        <p>Menggunakan material premium dan dikerjakan oleh tim profesional</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="../../Assets/icons/check.svg" alt="Garansi Icon">
+                        </div>
+                        <h3>Garansi Kepuasan</h3>
+                        <p>Revisi unlimited hingga hasil sesuai dengan keinginan Anda</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Mulai Konsultasi Gratis Sekarang</h2>
+                    <p>Dapatkan estimasi biaya dan timeline proyek Anda dalam 24 jam</p>
+                    <div class="cta-buttons">
+                        <a href="#booking" class="cta-btn booking">
+                            Booking Sekarang <span class="arrow">→</span>
+                        </a>
+                        <a href="#calculator" class="cta-btn calculator">
+                            Coba Kalkulator Estimasi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="service.js"></script>
+</body>
+</html>
