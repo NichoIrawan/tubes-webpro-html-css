@@ -1,3 +1,6 @@
+import "../../Components/navbar.js";
+import "../../Components/footer.js";
+
 const getStatusClass = (status) => {
   switch (status) {
     case "DONE":
@@ -47,14 +50,6 @@ const getTypeLabel = (type) => {
   }
 };
 
-const formatPrice = (price) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(price);
-};
-
 const getProjectTypeIcon = (type) => {
   switch (type) {
     case "RUMAH":
@@ -78,7 +73,7 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
 
   ongoingProjectList.innerHTML = "";
 
-  limitSize = 3;
+  let limitSize = 3;
 
   for (
     let i = 0;
@@ -147,44 +142,6 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
       }
     });
   });
-}
-
-function ongoingProjectScrollHandler(
-  ongoingList,
-  previous_active_index,
-  idx_current
-) {
-  const cardList = document.getElementById("ongoing-project-list");
-  project =
-    idx_current < previous_active_index
-      ? ongoingList[idx_current - 1]
-      : ongoingList[idx_current + 1];
-
-  const card = document.createElement("div");
-  card.className = `project-card`;
-  card.innerHTML = `
-        <div class="content">
-          <img src="${getProjectTypeIcon(project.jenis_proyek)}" 
-          alt="${project.jenis_proyek}">
-          <h3>${project.nama_proyek}</h3>
-          <div class="status">
-            <div class="indicator"></div>
-            <p>${getStatusLabel(project.status)}</p>
-          </div>
-        </div>
-        <a class="button-primary" href="#">
-          See Details
-          <img src="/Assets/arrow_forward-white.svg" alt="arrow_forward">
-        </a>
-      `;
-
-  if (previous_active_index < idx_current) {
-    cardList.removeChild(cardList.children[0]);
-    cardList.appendChild(card);
-  } else {
-    cardList.removeChild(cardList.children[cardList.children.length - 1]);
-    cardList.insertBefore(card, cardList.children[0]);
-  }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
