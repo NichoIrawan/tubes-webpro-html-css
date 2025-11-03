@@ -1,4 +1,4 @@
-// Services Data
+// Data Layanan
 const services = [
     {
         id: 1,
@@ -12,7 +12,7 @@ const services = [
             'Revisi unlimited hingga ACC',
             'Konsultasi dengan arsitek',
         ],
-        imageUrl: 'https://i.pinimg.com/1200x/c1/e5/c3/c1e5c3911e549f0bee199dbf73e98908.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6',
         category: 'Architecture',
         popular: true
     },
@@ -44,18 +44,17 @@ const services = [
             'Mood board & color scheme',
             'Project supervision',
         ],
-        imageUrl: 'https://i.pinimg.com/736x/32/6c/45/326c45b921b974a58538eafd9f83dbc8.jpg',
+        imageUrl:'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6',
         category: 'Construction',
         popular: true
     },
-    // Add other services here...
 ];
 
-// State management
+// State Management
 let currentCategory = 'All';
 let searchTerm = '';
 
-// DOM Elements
+// Elemen DOM
 const searchInput = document.getElementById('searchInput');
 const categoryFilters = document.getElementById('categoryFilters');
 const resultsCount = document.getElementById('resultsCount');
@@ -66,7 +65,7 @@ const regularServicesSection = document.getElementById('regularServicesSection')
 const noResults = document.getElementById('noResults');
 const resetFiltersButton = document.getElementById('resetFilters');
 
-// Initialize the page
+// Inisialisasi Halaman
 function initializePage() {
     setupEventListeners();
     createCategoryFilters();
@@ -89,7 +88,7 @@ function setupEventListeners() {
     });
 }
 
-// Create category filters
+// Create Filters
 function createCategoryFilters() {
     const categories = ['All', ...new Set(services.map(s => s.category))];
     
@@ -106,14 +105,14 @@ function createCategoryFilters() {
     });
 }
 
-// Update active category
+// Update Activity
 function updateActiveCategory() {
     document.querySelectorAll('.filter-button').forEach(button => {
         button.classList.toggle('active', button.textContent === currentCategory);
     });
 }
 
-// Filter services
+// Filter Services
 function filterServices() {
     return services.filter(service => {
         const matchesCategory = currentCategory === 'All' || service.category === currentCategory;
@@ -124,56 +123,63 @@ function filterServices() {
     });
 }
 
-// Create service card
+// Service Card
 function createServiceCard(service) {
     const card = document.createElement('div');
     card.className = 'service-card fade-in';
+    card.setAttribute('data-category', service.category);
     
     const categoryIcon = service.category.toLowerCase();
     
     card.innerHTML = `
         <div class="service-image">
-            <img src="${service.imageUrl}" alt="${service.name}">
+            <img src="${service.imageUrl}" alt="${service.name}" onerror="console.error('Image failed to load:', this.src)">
+            <div class="popular-badge">⭐ Popular</div>
         </div>
         <div class="service-content">
             <h2 class="service-title">${service.name}</h2>
             <p class="service-description">${service.description}</p>
             <div class="service-price">${service.price}</div>
-            <div class="features-list">
+            <ul class="features">
                 ${service.features.slice(0, 3).map(feature => `
-                    <div class="feature-item">
+                    <li>
+                        <span class="check-icon">✓</span>
                         ${feature}
-                    </div>
+                    </li>
                 `).join('')}
-                ${service.features.length > 3 ? 
-                    `<div class="more-features">+${service.features.length - 3} fitur lainnya</div>` : 
-                    ''
-                }
-            </div>
-            <button onclick="navigateTo('booking')" class="consult-button">
+            </ul>
+            ${service.features.length > 3 ? 
+                `<div class="additional-features">+${service.features.length - 3} fitur lainnya</div>` : 
+                ''
+            }
+            <a href="#" class="consult-button">
                 Konsultasi Gratis
-            </button>
+                ${service.category === 'Construction' ? 
+                    `<span class="arrow">→</span>` : 
+                    `<span class="arrow">→</span>`
+                }
+            </a>
         </div>
     `;
     
     return card;
 }
 
-// Render services
+// Render
 function renderServices() {
     const filteredServices = filterServices();
     const popularServicesList = filteredServices.filter(s => s.popular);
     const regularServicesList = filteredServices.filter(s => !s.popular);
 
-    // Update results count
+    // Update results
     resultsCount.textContent = `Menampilkan ${filteredServices.length} dari ${services.length} layanan`;
 
-    // Clear existing services
+    // Clear Services
     if (popularServices) popularServices.innerHTML = '';
     if (regularServices) regularServices.innerHTML = '';
 
     if (filteredServices.length === 0) {
-        // Show no results message
+        // No Results Massage
         if (noResults) {
             noResults.classList.remove('hidden');
             noResults.style.display = 'block';
@@ -181,7 +187,7 @@ function renderServices() {
         if (popularServicesSection) popularServicesSection.classList.add('hidden');
         if (regularServicesSection) regularServicesSection.classList.add('hidden');
     } else {
-        // Hide no results message
+        // Hide message
         if (noResults) {
             noResults.classList.add('hidden');
             noResults.style.display = 'none';
@@ -211,9 +217,8 @@ function renderServices() {
 
 // Navigation function
 function navigateTo(page) {
-    // Handle navigation (implement based on your needs)
     console.log(`Navigating to ${page}`);
 }
 
-// Initialize the page when DOM is loaded
+// Initialize DOM page
 document.addEventListener('DOMContentLoaded', initializePage);
