@@ -3,344 +3,289 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="/Components/chat.js" defer></script>
   <title>CEMA Design</title>
   <link rel="stylesheet" href="home.css" />
 </head>
 <body>
   <!-- Navbar -->
    <navigation-bar></navigation-bar>
-  <!-- <header>
-        <nav>
-            <img src="/Assets/Cema_Logo.png" alt="Cema Logo">
-            <ul>
-                <li class="active"><a href="#" aria-current="page">Home</a></li>
-                <li><a href="/Sections/My_Projects/page.html">My Project</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="/Sections/Contact_Us/page.html">Contact Us</a></li>
-                <li><a href="#">Account</a></li>
-            </ul>
-        </nav>
-    </header> --> 
+
+   <div class="content">
   <!-- Hero Section -->  
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <div class="hero-badge">Arsitektur & Desain Interior Profesional</div>
-        <h1>Wujudkan Hunian Impian Anda Bersama CEMA Design</h1>
-        <p>Layanan lengkap dari konsep hingga realisasi untuk menciptakan ruang yang sempurna sesuai visi Anda</p>
-        <div class="hero-buttons">
-          <button class="btn-primary" onclick="location.href='/Sections/Contact_Us/page.html'">
-            Konsultasi Gratis
-            <span class="svg-icon icon-arrow-right"></span>
-          </button>
-          <button class="btn-outline" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">
-            <span class="svg-icon icon-calculator"></span>
-            Hitung Estimasi
-          </button>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="/Assets/3d-model-house.png" alt="3D Living Room" class="main-image" />
-      </div>
-    </div>
-
-    <!-- Stats Section -->
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-number">500+</div>
-        <div class="stat-label">Proyek Selesai</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Tahun Pengalaman</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">98%</div>
-        <div class="stat-label">Kepuasan Klien</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">50+</div>
-        <div class="stat-label">Tim Profesional</div>
-      </div>
-    </div>
-  </section>
-<!-- Services Section -->
-<section class="services" id="services">
-  <div class="section-content">
-    <div class="section-header">
-      <h2>Layanan Terbaik Kami</h2>
-      <p>Solusi lengkap untuk semua kebutuhan arsitektur dan desain interior Anda</p>
-    </div>
-
-    <div class="services-grid">
-      <!-- Service Card 1 -->
-      <div class="service-card">
-        <div class="service-image">
-          <img src="/Assets/imageLivingRoom.png" alt="Desain Arsitektur">
-          <div class="service-icon" data-service="architecture">
-            <span class="svg-icon icon-architecture"></span>
-          </div>
-        </div>
-        <div class="service-content">
-          <h3>Desain Arsitektur</h3>
-          <p>Layanan desain arsitektur lengkap untuk rumah tinggal, komersial, dan bangunan publik</p>
-          <div class="service-price">Mulai dari Rp 15.000.000</div>
-          <ul class="service-features">
-            <li>Konsep desain 3D</li>
-            <li>Gambar kerja lengkap</li>
-            <li>RAB (Rencana Anggaran Biaya)</li>
-            <li>Revisi unlimited hingga ACC</li>
-          </ul>
-          <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
-            Konsultasi Gratis
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Service Card 2 -->
-      <div class="service-card">
-        <div class="service-image">
-          <img src="/Assets/imageLivingRoom.png" alt="Desain Interior">
-          <div class="service-icon" data-service="interior">
-            <span class="svg-icon icon-home"></span>
-          </div>
-        </div>
-        <div class="service-content">
-          <h3>Desain Interior</h3>
-          <p>Transformasi ruang interior dengan desain yang fungsional dan estetis</p>
-          <div class="service-price">Mulai dari Rp 10.000.000</div>
-          <ul class="service-features">
-            <li>Konsep interior 3D</li>
-            <li>Pemilihan material & finishing</li>
-            <li>Furniture custom design</li>
-            <li>Mood board & color scheme</li>
-          </ul>
-          <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
-            Konsultasi Gratis
-            <span class="svg-icon icon-arrow-right"></span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Service Card 2 -->
-      <div class="service-card accent">
-        <div class="service-image">
-          <img src="/Assets/imageLivingRoom.png" alt="Renovasi & Remodeling">
-          <div class="service-icon" data-service="renovation">
-            <span class="svg-icon icon-wrench"></span>
-          </div>
-        </div>
-        <div class="service-content">
-          <h3>Renovasi & Remodeling</h3>
-          <p>Renovasi total atau parsial untuk memberikan wajah baru pada bangunan Anda</p>
-          <div class="service-price">Mulai dari Rp 8.000.000</div>
-          <ul class="service-features">
-            <li>Survey & analisa kondisi</li>
-            <li>Desain renovasi</li>
-            <li>Koordinasi kontraktor</li>
-            <li>Quality control</li>
-          </ul>
-          <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
-            Konsultasi Gratis
-            <img src="/Assets/icons/arrow-right.svg" alt="Arrow Right">
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="services-cta">
-          <button class="btn-outline-large" onclick="location.href='/services'">
-        Lihat Semua Layanan
-        <span class="svg-icon icon-arrow-right"></span>
-      </button>
-    </div>
-  </div>
-</section>
-
-  <!-- Calculator Section -->
-  <section class="py-20 bg-white" id="calculator">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2>Kalkulator Estimasi Biaya</h2>
-        <p class="text-gray-600">Hitung perkiraan biaya proyek desain Anda dengan mudah</p>
-      </div>
-
-      <div class="calculator-grid">
-        <!-- Calculator Form -->
-        <div class="calculator-form">
-          <h3>Input Detail Proyek</h3>
-
-          <div class="calc-inputs">
-            <!-- Building Area -->
-            <div class="input-group">
-              <label>Luas Bangunan</label>
-              <div class="slider-container">
-                <input type="range" id="area" min="20" max="500" step="10" value="100">
-                <span id="areaValue">100 m²</span>
-              </div>
-            </div>
-
-            <!-- Service Type -->
-            <div class="input-group">
-              <label>Jenis Layanan</label>
-              <div class="button-group" id="serviceOptions">
-                <button data-value="interior" class="active">Desain Interior</button>
-                <button data-value="architecture">Arsitektur</button>
-                <button data-value="renovation">Renovasi</button>
-              </div>
-            </div>
-
-            <!-- Material Type -->
-            <div class="input-group">
-              <label>Kualitas Material</label>
-              <div class="button-group" id="materialOptions">
-                <button data-value="standard" class="active">Standard</button>
-                <button data-value="premium">Premium</button>
-                <button data-value="luxury">Luxury</button>
-              </div>
-            </div>
-
-            <!-- Room Count -->
-            <div class="input-group">
-              <label>Jumlah Ruangan</label>
-              <div class="slider-container">
-                <input type="range" id="roomCount" min="1" max="10" step="1" value="3">
-                <span id="roomValue">3 ruangan</span>
-              </div>
-            </div>
-
-            <button id="calculateBtn" class="btn-calculate">Hitung Estimasi</button>
-          </div>
-        </div>
-
-        <!-- Result Box -->
-        <div id="resultBox" class="result-section">
-          <div class="placeholder-result">
-            <p>Isi form dan klik "Hitung Estimasi"</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA QUIZ -->
-  <section class="cta-quiz">
-    <div class="container cta-card">
-      <h2>Tidak Yakin Gaya Desain Anda?</h2>
-      <p>Ikuti quiz interaktif kami untuk menemukan gaya desain yang sesuai dengan kepribadian dan kebutuhan Anda</p>
-      <a href="calculator.html" class="btn-quiz">Mulai Quiz</a>
-    </div>
-  </section>
-
-  <!-- Portfolio Section -->
-  <section class="portfolio" id="portfolio">
-    <div class="section-content">
-      <div class="section-header">
-        <h2>Portfolio Kami</h2>
-        <p>Lihat beberapa proyek terbaik yang telah kami kerjakan</p>
-      </div>
-
-      <div class="portfolio-showcase">
-        <!-- Portfolio Item 1 -->
-        <div class="portfolio-item">
-          <div class="portfolio-image">
-            <img src="/Assets/imageLivingRoom.png" alt="Luxury Villa Design">
-            <div class="portfolio-overlay">
-              <div class="portfolio-category">Interior</div>
-              <h3>Luxury Villa Design</h3>
-            </div>
-          </div>
-        </div>
-
-        <!-- Portfolio Item 2 -->
-        <div class="portfolio-item">
-          <div class="portfolio-image">
-            <img src="/Assets/imageLivingRoom.png" alt="Modern Living Space">
-            <div class="portfolio-overlay">
-              <div class="portfolio-category">Interior</div>
-              <h3>Modern Living Space</h3>
-            </div>
-          </div>
-        </div>
-
-        <!-- Portfolio Item 3 -->
-        <div class="portfolio-item">
-          <div class="portfolio-image">
-            <img src="/Assets/imageLivingRoom.png" alt="Contemporary Kitchen">
-            <div class="portfolio-overlay">
-              <div class="portfolio-category">Interior</div>
-              <h3>Contemporary Kitchen</h3>
-            </div>
-          </div>
-        </div>
-
-        <!-- Portfolio Item 4 -->
-        <div class="portfolio-item">
-          <div class="portfolio-image">
-            <img src="/Assets/imageLivingRoom.png" alt="Elegant Bedroom">
-            <div class="portfolio-overlay">
-              <div class="portfolio-category">Interior</div>
-              <h3>Elegant Bedroom</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="portfolio-cta">
-          <button class="btn-outline-large" onclick="location.href='/Sections/My_Projects/page.html'">
-          Lihat Semua Portfolio
-          <span class="svg-icon icon-arrow-right"></span>
-        </button>
-      </div>
-    </div>
-  </section>
-          <footer>
-            <div class="footer-container">
-              <div class="footer-column">
-                <h3>About Us</h3>
-                <a href="#">Our Story</a>
-                <a href="#">News</a>
-                <a href="#">Blog</a>
-                <a href="#">Privacy</a>
-                <a href="#">User Agreement</a>
-                <a href="#">Updates</a>
-                <a href="#">Contact Us</a>
-              </div>
-          
-              <div class="footer-column">
-                <h3>About Us</h3>
-                <a href="#">Our Story</a>
-                <a href="#">News</a>
-                <a href="#">Blog</a>
-                <a href="#">Privacy</a>
-                <a href="#">User Agreement</a>
-                <a href="#">Updates</a>
-                <a href="#">Contact Us</a>
-              </div>
-          
-              <div class="footer-column">
-                <h3>About Us</h3>
-                <a href="#">Our Story</a>
-                <a href="#">News</a>
-                <a href="#">Blog</a>
-                <a href="#">Privacy</a>
-                <a href="#">User Agreement</a>
-                <a href="#">Updates</a>
-                <a href="#">Contact Us</a>
-          
-                <div class="footer-social">
-                    <a href="#"><img src="/Assets/email.png" alt="logo-email"></a>
-                    <a href="#"><img src="/Assets/wa.png" alt="logo-wa"></a>
-                    <a href="#"><img src="/Assets/ig.png" alt="logo-ig"></a>
-                  </div>                  
-                  
-            </div>
-          </footer>
+     <section class="hero" id="hero">
+       <div class="hero-content">
+         <div class="hero-text">
+           <div class="hero-badge">Arsitektur & Desain Interior Profesional</div>
+           <h1>Wujudkan Hunian Impian Anda Bersama CEMA Design</h1>
+           <p>Layanan lengkap dari konsep hingga realisasi untuk menciptakan ruang yang sempurna sesuai visi Anda</p>
+           <div class="hero-buttons">
+             <button class="btn-primary" onclick="location.href='/Sections/Contact_Us/page.html'">
+               Konsultasi Gratis
+               <span class="svg-icon icon-arrow-right"></span>
+             </button>
+             <button class="btn-outline" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">
+               <span class="svg-icon icon-calculator"></span>
+               Hitung Estimasi
+             </button>
+           </div>
+         </div>
+         <div class="hero-image">
+           <img src="/Assets/3d-model-house.png" alt="3D Living Room" class="main-image" />
+         </div>
+       </div>
+   
+       <!-- Stats Section -->
+       <div class="hero-stats">
+         <div class="stat-item">
+           <div class="stat-number">500+</div>
+           <div class="stat-label">Proyek Selesai</div>
+         </div>
+         <div class="stat-item">
+           <div class="stat-number">15+</div>
+           <div class="stat-label">Tahun Pengalaman</div>
+         </div>
+         <div class="stat-item">
+           <div class="stat-number">98%</div>
+           <div class="stat-label">Kepuasan Klien</div>
+         </div>
+         <div class="stat-item">
+           <div class="stat-number">50+</div>
+           <div class="stat-label">Tim Profesional</div>
+         </div>
+       </div>
+     </section>
+   <!-- Services Section -->
+   <section class="services" id="services">
+     <div class="section-content">
+       <div class="section-header">
+         <h2>Layanan Terbaik Kami</h2>
+         <p>Solusi lengkap untuk semua kebutuhan arsitektur dan desain interior Anda</p>
+       </div>
+   
+       <div class="services-grid">
+         <!-- Service Card 1 -->
+         <div class="service-card">
+           <div class="service-image">
+             <img src="/Assets/imageLivingRoom.png" alt="Desain Arsitektur">
+             <div class="service-icon" data-service="architecture">
+               <span class="svg-icon icon-architecture"></span>
+             </div>
+           </div>
+           <div class="service-content">
+             <h3>Desain Arsitektur</h3>
+             <p>Layanan desain arsitektur lengkap untuk rumah tinggal, komersial, dan bangunan publik</p>
+             <div class="service-price">Mulai dari Rp 15.000.000</div>
+             <ul class="service-features">
+               <li>Konsep desain 3D</li>
+               <li>Gambar kerja lengkap</li>
+               <li>RAB (Rencana Anggaran Biaya)</li>
+               <li>Revisi unlimited hingga ACC</li>
+             </ul>
+             <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
+               Konsultasi Gratis
+             </button>
+           </div>
+         </div>
+   
+         <!-- Service Card 2 -->
+         <div class="service-card">
+           <div class="service-image">
+             <img src="/Assets/imageLivingRoom.png" alt="Desain Interior">
+             <div class="service-icon" data-service="interior">
+               <span class="svg-icon icon-home"></span>
+             </div>
+           </div>
+           <div class="service-content">
+             <h3>Desain Interior</h3>
+             <p>Transformasi ruang interior dengan desain yang fungsional dan estetis</p>
+             <div class="service-price">Mulai dari Rp 10.000.000</div>
+             <ul class="service-features">
+               <li>Konsep interior 3D</li>
+               <li>Pemilihan material & finishing</li>
+               <li>Furniture custom design</li>
+               <li>Mood board & color scheme</li>
+             </ul>
+             <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
+               Konsultasi Gratis
+               <span class="svg-icon icon-arrow-right"></span>
+             </button>
+           </div>
+         </div>
+   
+         <!-- Service Card 2 -->
+         <div class="service-card accent">
+           <div class="service-image">
+             <img src="/Assets/imageLivingRoom.png" alt="Renovasi & Remodeling">
+             <div class="service-icon" data-service="renovation">
+               <span class="svg-icon icon-wrench"></span>
+             </div>
+           </div>
+           <div class="service-content">
+             <h3>Renovasi & Remodeling</h3>
+             <p>Renovasi total atau parsial untuk memberikan wajah baru pada bangunan Anda</p>
+             <div class="service-price">Mulai dari Rp 8.000.000</div>
+             <ul class="service-features">
+               <li>Survey & analisa kondisi</li>
+               <li>Desain renovasi</li>
+               <li>Koordinasi kontraktor</li>
+               <li>Quality control</li>
+             </ul>
+             <button class="service-cta" onclick="location.href='/Sections/Contact_Us/page.html'">
+               Konsultasi Gratis
+               <div class="svg-icon icon-arrow-right"></div>
+             </button>
+           </div>
+         </div>
+       </div>
+   
+       <div class="services-cta">
+             <button class="btn-outline-large" onclick="location.href='/services'">
+           Lihat Semua Layanan
+           <div class="svg-icon icon-arrow-right"></div>
+         </button>
+       </div>
+     </div>
+   </section>
+   
+     <!-- Calculator Section -->
+     <section class="calculatorBox" id="calculator">
+       <div class="KeseluruhanCalculator">
+         <div class="textEstimasi">
+           <h2>Kalkulator Estimasi Biaya</h2>
+           <p class="textEstimasi2">Hitung perkiraan biaya proyek desain Anda dengan mudah</p>
+         </div>
+   
+         <div class="calculator-grid">
+           <!-- Calculator Form -->
+           <div class="calculator-form">
+             <h3>Input Detail Proyek</h3>
+   
+             <div class="calc-inputs">
+               <!-- Building Area -->
+               <div class="input-group">
+                 <label>Luas Bangunan</label>
+                 <div class="slider-container">
+                   <input type="range" id="area" min="20" max="500" step="10" value="100">
+                   <span id="areaValue">100 m²</span>
+                 </div>
+               </div>
+   
+               <!-- Service Type -->
+               <div class="input-group">
+                 <label>Jenis Layanan</label>
+                 <div class="button-group" id="serviceOptions">
+                   <button data-value="interior" class="active">Desain Interior</button>
+                   <button data-value="architecture">Arsitektur</button>
+                   <button data-value="renovation">Renovasi</button>
+                 </div>
+               </div>
+   
+               <!-- Material Type -->
+               <div class="input-group">
+                 <label>Kualitas Material</label>
+                 <div class="button-group" id="materialOptions">
+                   <button data-value="standard" class="active">Standard</button>
+                   <button data-value="premium">Premium</button>
+                   <button data-value="luxury">Luxury</button>
+                 </div>
+               </div>
+   
+               <!-- Room Count -->
+               <div class="input-group">
+                 <label>Jumlah Ruangan</label>
+                 <div class="slider-container">
+                   <input type="range" id="roomCount" min="1" max="10" step="1" value="3">
+                   <span id="roomValue">3 ruangan</span>
+                 </div>
+               </div>
+   
+               <button id="calculateBtn" class="btn-calculate">Hitung Estimasi</button>
+             </div>
+           </div>
+   
+           <!-- Result Box -->
+           <div id="resultBox" class="result-section">
+             <div class="placeholder-result">
+               <p>Isi form dan klik "Hitung Estimasi"</p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+   
+     <!-- CTA QUIZ -->
+     <section class="cta-quiz">
+       <div class="container cta-card">
+         <h2>Tidak Yakin Dengan Gaya Desain Anda?</h2>
+         <p>Ikuti quiz interaktif kami untuk menemukan gaya desain yang sesuai dengan kepribadian dan kebutuhan Anda</p>
+         <a href="#" class="btn-quiz">Mulai Quiz</a>
+       </div>
+     </section>
+   
+     <!-- Portfolio Section -->
+     <section class="portfolio" id="portfolio">
+       <div class="section-content">
+         <div class="section-header">
+           <h2>Portfolio Kami</h2>
+           <p>Lihat beberapa proyek terbaik yang telah kami kerjakan</p>
+         </div>
+   
+         <div class="portfolio-showcase">
+           <!-- Portfolio Item 1 -->
+           <div class="portfolio-item">
+             <div class="portfolio-image">
+               <img src="/Assets/imageLivingRoom.png" alt="Luxury Villa Design">
+               <div class="portfolio-overlay">
+                 <div class="portfolio-category">Interior</div>
+                 <h3>Luxury Villa Design</h3>
+               </div>
+             </div>
+           </div>
+   
+           <!-- Portfolio Item 2 -->
+           <div class="portfolio-item">
+             <div class="portfolio-image">
+               <img src="/Assets/imageLivingRoom.png" alt="Modern Living Space">
+               <div class="portfolio-overlay">
+                 <div class="portfolio-category">Interior</div>
+                 <h3>Modern Living Space</h3>
+               </div>
+             </div>
+           </div>
+   
+           <!-- Portfolio Item 3 -->
+           <div class="portfolio-item">
+             <div class="portfolio-image">
+               <img src="/Assets/imageLivingRoom.png" alt="Contemporary Kitchen">
+               <div class="portfolio-overlay">
+                 <div class="portfolio-category">Interior</div>
+                 <h3>Contemporary Kitchen</h3>
+               </div>
+             </div>
+           </div>
+   
+           <!-- Portfolio Item 4 -->
+           <div class="portfolio-item">
+             <div class="portfolio-image">
+               <img src="/Assets/imageLivingRoom.png" alt="Elegant Bedroom">
+               <div class="portfolio-overlay">
+                 <div class="portfolio-category">Interior</div>
+                 <h3>Elegant Bedroom</h3>
+               </div>
+             </div>
+           </div>
+         </div>
+   
+         <div class="portfolio-cta">
+             <button class="btn-outline-large" onclick="location.href='/Sections/My_Projects/page.html'">
+             Lihat Semua Portfolio
+             <span class="svg-icon icon-arrow-right"></span>
+           </button>
+         </div>
+       </div>
+     </section>
+   </div>
+  <footer-component></footer-component>
   <script type="module" src="home.js"></script>
 </body>
 </html>
