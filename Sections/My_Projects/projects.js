@@ -1,5 +1,6 @@
 import "../../Components/navbar.js";
 import "../../Components/footer.js";
+import "../../Components/chat.js";
 
 const getStatusClass = (status) => {
   switch (status) {
