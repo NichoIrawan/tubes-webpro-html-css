@@ -12,6 +12,11 @@ class NavigationBar extends HTMLElement {
     this.render();
   }
 
+  isLogin() {
+    // Placeholder for login check logic
+    return false; // Change this based on actual login status
+  }
+
   render() {
     this.shadowRoot.innerHTML = `
             <style>
@@ -51,14 +56,14 @@ class NavigationBar extends HTMLElement {
                 }
 
                 nav ul li {
-                    font-size: 0.67rem;
+                    font-size: 1rem;
                     color: #000000;
                     cursor: pointer;
+                    transition: transform 0.2s;
                 }
 
                 nav ul li:hover {
-                    text-decoration: underline;
-                    text-underline-offset: 0.3rem;
+                    transform: translateY(-0.2rem);
                 }
 
                 .active {
@@ -78,16 +83,27 @@ class NavigationBar extends HTMLElement {
                         <a href="/Sections/Home/page.html">Home</a>
                     </li>
                     <li class="${this.isActive("/My_Projects")}">
-                        <a href="/Sections/My_Projects/page.html">My Project</a>
+                    <a href="/Sections/My_Projects/page.html">My Project</a>
                     </li>
-                    <li><a href="#">Services</a></li>
-                    <li class="${this.isActive(
-                      "/About_Us"
-                    )}"><a href="/Sections/About_Us/page.html">About Us</a></li>
+                    <li class="${this.isActive("/Portfolio")}">
+                        <a href="/Sections/Portfolio/page.html">Portfolio</a>
+                    </li>
+                    <li class="${this.isActive("/Services")}">
+                        <a href="/Section/Services/page.html">Services</a>
+                    </li>
+                    <li class="${this.isActive("/About_Us")}">
+                        <a href="/Section/AboutUs/page.html">About Us</a>
+                    </li>
                     <li class="${this.isActive("/Contact_Us")}">
                         <a href="/Sections/Contact_Us/page.html">Contact Us</a>
                     </li>
-                    <li><a href="#">Account</a></li>
+                    <li class="${this.isActive("/Account")}">
+                        <a href="${
+                          this.isLogin()
+                            ? "/Sections/Account/page.html"
+                            : "/Sections/Login_Register/login.html"
+                        }">Account</a>
+                    </li>
                 </ul>
             </nav>
         `;

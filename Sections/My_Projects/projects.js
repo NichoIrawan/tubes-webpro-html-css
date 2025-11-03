@@ -94,9 +94,9 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
           <p>${getStatusLabel(project.status)}</p>
         </div>
       </div>
-      <a class="button-primary" href="#">
+      <a class="button-primary white-arrow" href="#">
         See Details
-        <img src="/Assets/arrow_forward-white.svg" alt="arrow_forward">
+        <img src="/Assets/arrow_forward.svg" alt="arrow_forward">
       </a>
     `;
     ongoingProjectList.appendChild(card);
@@ -147,7 +147,7 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     // Fetch projects data
-    const response = await fetch("/Data/projects.json");
+    const response = await fetch("/data/projects.json");
     const data = await response.json();
     const projects = data.projects;
 
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <h3>${project.nama_proyek}</h3>
           <p>${getTypeLabel(project.jenis_proyek)}</p>
         </div>
-        <a class="button-primary" href="#">
+        <a class="button-primary black-arrow" href="#">
           See Details
           <img src="/Assets/arrow_forward.svg" alt="arrow_forward">
         </a>
