@@ -1,0 +1,59 @@
+{
+    "milestones": [
+      {
+        "year": "2016",
+        "title": "Awal Perjalanan",
+        "description": "Company X didirikan dengan visi menciptakan ruang yang tidak hanya indah, tetapi juga bermakna. Dimulai dari studio kecil dengan 3 orang tim passionate.",
+        "icon": "✨",
+        "stats": { "projects": "5", "clients": "3", "team": "3" },
+        "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600"
+      },
+      {
+        "year": "2019",
+        "title": "Ekspansi & Inovasi",
+        "description": "Tiga tahun berlalu, kami telah menyelesaikan 150+ proyek dan memperluas tim menjadi 25 profesional. Kami membuka kantor baru dan mulai mengintegrasikan teknologi 3D visualization.",
+        "icon": "📈",
+        "stats": { "projects": "150+", "clients": "80+", "team": "25" },
+        "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600"
+      },
+      {
+        "year": "2022",
+        "title": "Pengakuan Nasional",
+        "description": "Meraih penghargaan 'Best Interior Design Firm' dan 'Sustainable Architecture Award'. Kami juga meluncurkan platform digital untuk memudahkan klien memantau proyek secara real-time.",
+        "icon": "🏆",
+        "stats": { "projects": "400+", "clients": "250+", "team": "50" },
+        "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600"
+      },
+      {
+        "year": "2025",
+        "title": "Era Baru",
+        "description": "Hari ini, kami adalah firma arsitektur dan interior terpercaya dengan portofolio beragam. Kami terus berinovasi dengan AI-assisted design dan sustainable materials.",
+        "icon": "🌍",
+        "stats": { "projects": "750+", "clients": "500+", "team": "80" },
+        "image": "https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=600"
+      }
+    ],
+    "values": [
+      {
+        "icon": "❤️",
+        "title": "Passionate",
+        "description": "Kami mencintai setiap detail dari pekerjaan kami dan menuangkan passion dalam setiap proyek."
+      },
+      {
+        "icon": "💡",
+        "title": "Innovative",
+        "description": "Selalu mencari cara baru dan lebih baik untuk menciptakan desain yang luar biasa."
+      },
+      {
+        "icon": "🎯",
+        "title": "Client-Focused",
+        "description": "Kepuasan klien adalah prioritas utama. Kami mendengarkan dan mewujudkan visi Anda."
+      },
+      {
+        "icon": "🏅",
+        "title": "Excellence",
+        "description": "Komitmen terhadap kualitas tertinggi dalam setiap aspek pekerjaan kami."
+      }
+    ]
+  }
+  

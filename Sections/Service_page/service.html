@@ -6,10 +6,12 @@
     <title>Services - CemaDesign</title>
     <link rel="stylesheet" href="service.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/Components/navbar.js"></script>
+    <script src="/Components/footer.js"></script>
 </head>
 <body>
+     <navigation-bar></navigation-bar>
     <div class="wrapper">
-        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -18,7 +20,6 @@
                     <p>Dari konsep hingga realisasi, kami menyediakan layanan profesional untuk mewujudkan ruang impian Anda</p>
                 </div>
 
-                <!-- Search and Filter -->
                 <div class="search-box">
                     <div class="search-input">
                         <span class="search-icon">🔍</span>
@@ -37,7 +38,6 @@
             </div>
         </section>
 
-        <!-- Popular Services -->
         <section class="popular-services" id="popularServicesSection">
             <div class="container">
                 <div class="section-header">
@@ -45,80 +45,30 @@
                 </div>
 
                 <div class="services-grid" id="popularServices">
-                    <!-- Popular services will be added dynamically -->
                 </div>
             </div>
         </section>
 
-        <!-- All Services -->
-        <section class="other-services">
+        <section class="regular-services" id="regularServicesSection">
             <div class="container">
                 <div class="section-header">
-                    <h2>Layanan Lainnya</h2>
+                    <h2>Semua Layanan</h2>
                 </div>
-                
-                <div class="services-grid">
-                    <div class="other-service-card">
-                        <img src="path-to-renovation-image.jpg" alt="Renovasi & Remodeling" class="service-image">
-                        <div class="service-badge">
-                            <img src="../../Assets/icons/renovation.svg" alt="Renovation Icon">
-                            <span>Renovation</span>
-                        </div>
-                        <div class="service-content">
-                            <h3>Renovasi & Remodeling</h3>
-                            <p>Renovasi total atau parsial untuk memberikan wajah baru pada bangunan Anda</p>
-                            <div class="price">Mulai dari Rp 8.000.000</div>
-                            <ul class="features">
-                                <li>Survey & analisa kondisi</li>
-                                <li>Desain renovasi</li>
-                                <li>Koordinasi kontraktor</li>
-                            </ul>
-                            <div class="additional-features">+2 fitur lainnya</div>
-                        </div>
-                    </div>
-
-                    <div class="other-service-card">
-                        <img src="path-to-landscape-image.jpg" alt="Landscape Design" class="service-image">
-                        <div class="service-badge">
-                            <img src="../../Assets/icons/landscape.svg" alt="Landscape Icon">
-                            <span>Landscape</span>
-                        </div>
-                        <div class="service-content">
-                            <h3>Landscape Design</h3>
-                            <p>Desain taman dan landscape untuk menciptakan outdoor space yang menawan</p>
-                            <div class="price">Mulai dari Rp 5.000.000</div>
-                            <ul class="features">
-                                <li>Konsep landscape 3D</li>
-                                <li>Pemilihan tanaman & hardscape</li>
-                                <li>Sistem irigasi</li>
-                            </ul>
-                            <div class="additional-features">+2 fitur lainnya</div>
-                        </div>
-                    </div>
-
-                    <div class="other-service-card">
-                        <img src="path-to-consultation-image.jpg" alt="Konsultasi Desain" class="service-image">
-                        <div class="service-badge">
-                            <img src="../../Assets/icons/consultation.svg" alt="Consultation Icon">
-                            <span>Consultation</span>
-                        </div>
-                        <div class="service-content">
-                            <h3>Konsultasi Desain</h3>
-                            <p>Konsultasi profesional untuk mendapatkan solusi terbaik untuk proyek Anda</p>
-                            <div class="price">Rp 500.000 / sesi</div>
-                            <ul class="features">
-                                <li>Durasi 1-2 jam</li>
-                                <li>Diskusi konsep & ide</li>
-                                <li>Rekomendasi material</li>
-                            </ul>
-                            <div class="additional-features">+2 fitur lainnya</div>
-                        </div>
-                    </div>
+                <div class="services-grid" id="regularServices">
                 </div>
             </div>
         </section>
+        
+        <div id="noResults" class="no-results hidden">
+            <div class="container">
+                <div class="empty-state">
+                    <h3>Tidak ada layanan yang ditemukan</h3>
+                    <p>Coba ubah kata kunci pencarian atau reset filter</p>
+                    <button id="resetFilters" class="reset-button">Reset Filter</button>
+                </div>
+            </div>
+        </div>
 
-        <!-- Why Choose Us Section -->
         <section class="features">
             <div class="container">
                 <div class="section-header">
@@ -152,7 +102,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="cta">
             <div class="container">
                 <div class="cta-content">
@@ -170,6 +119,7 @@
             </div>
         </section>
     </div>
+        <footer-component></footer-component>
 
     <script src="service.js"></script>
 </body>
