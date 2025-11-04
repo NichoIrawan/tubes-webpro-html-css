@@ -97,13 +97,13 @@ class NavigationBar extends HTMLElement {
                     <li class="${this.isActive("/Contact_Us")}">
                         <a href="/Sections/Contact_Us/page.html">Contact Us</a>
                     </li>
-                    <li class="${this.isActive("/Account")}">
-                        <a href="${
-                          this.isLogin()
-                            ? "/Sections/Account/page.html"
-                            : "/Sections/Login_Register/login.html"
-                        }">Account</a>
-                    </li>
+                                        <li class="${this.isActive("/Account")}">
+                                                <a href="${
+                                                    this.isLogin()
+                                                        ? "/Sections/Account/page.html"
+                                                        : "/Sections/Login_Register/login.html"
+                                                }">Account</a>
+                                        </li>
                 </ul>
             </nav>
         `;

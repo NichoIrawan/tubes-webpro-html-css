@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Quiz</title>
+
+  <!-- Komponen JS (dengan defer agar tidak blocking) -->
+  <script src="/Components/chat.js" defer></script>
+  <script src="/Components/footer.js" defer></script>
+  <script src="/Components/navbar.js" defer></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/Sections/Home/home.css" />
+  <link rel="stylesheet" href="DesignQuiz.css" />
+</head>
+<body>
+  <!-- Navbar dari komponen -->
+  <navigation-bar></navigation-bar>
+
+  <!-- Konten Utama Quiz -->
+  <main class="quiz-page">
+    <!-- Progress Bar -->
+    <header class="quiz-progress">
+      <div class="progress-info">
+        <span id="progress-text">Pertanyaan 1 dari 5</span>
+        <span id="progress-percent">20%</span>
+      </div>
+      <div class="progress-bar" aria-hidden="true">
+        <div id="progress-fill" class="progress-fill" style="width: 20%"></div>
+      </div>
+    </header>
+
+    <!-- Kartu Pertanyaan -->
+    <section class="quiz-card" role="region" aria-labelledby="question-title">
+      <h2 id="question-title" class="question-title">Gaya desain apa yang paling Anda sukai?</h2>
+
+      <div id="options" class="options-list" role="list">
+        <!-- Opsi akan diisi oleh JavaScript -->
+        <!-- Contoh struktur yang diharapkan oleh CSS:
+        <div class="option" data-value="minimalis">
+          Minimalis Modern
+          <span class="check">✓</span>
+        </div>
+        -->
+      </div>
+
+      <div class="quiz-actions">
+        <button id="prevBtn" class="btn ghost" disabled>< Kembali</button>
+        <button id="nextBtn" class="btn primary" disabled>Lanjut ></button>
+      </div>
+    </section>
+
+    <!-- Modal: Formulir Info Pengguna -->
+    <div id="infoModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+      <div class="modal-content">
+        <button id="closeModal" class="modal-close" aria-label="Tutup">×</button>
+        <h3 id="modal-title">Informasi Anda</h3>
+        <p class="muted">Mohon isi informasi Anda untuk melihat hasil quiz</p>
+        <label for="userName">Nama Lengkap
+          <input id="userName" type="text" placeholder="Nama lengkap" />
+        </label>
+        <label for="userEmail">Email
+          <input id="userEmail" type="email" placeholder="email@example.com" />
+        </label>
+        <div class="modal-actions">
+          <button id="cancelModal" class="btn ghost">Batal</button>
+          <button id="showResultBtn" class="btn primary">Lihat Hasil</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layar Hasil -->
+    <section id="resultScreen" class="result-screen" aria-hidden="true">
+      <div class="result-hero">
+        <div class="result-hero-content">
+          <p class="muted small">Gaya Desain Anda:</p>
+          <h1 id="resultTitle">Minimalis Modern</h1>
+        </div>
+      </div>
+
+      <div class="result-body">
+        <p id="resultDesc" class="result-desc">
+          Desain clean dengan garis simpel dan fungsional. Cocok untuk Anda yang menyukai kesederhanaan dan efisiensi.
+        </p>
+
+        <h4 class="result-char-title">Karakteristik:</h4>
+        <div id="resultChars" class="char-grid">
+          <!-- Contoh:
+          <div class="char-item">
+            <span class="tick">✓</span>
+            <span>Fungsional</span>
+          </div>
+          -->
+        </div>
+
+        <div class="result-actions">
+          <a href="../Contact_Us/page.html" class="btn wide primary">Konsultasi Sekarang</a>
+          <button id="retakeBtn" class="btn wide ghost">Ulangi Quiz</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer dari komponen -->
+  <footer-component></footer-component>
+
+  <!-- Script logika quiz -->
+  <script src="DesignQuiz.js"></script>
+</body>
+</html>
