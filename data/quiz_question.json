@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "Gaya desain apa yang paling Anda sukai?",
+    "options": [
+      "Minimalis Modern",
+      "Klasik Elegan",
+      "Industrial",
+      "Skandinavia"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Bentuk furniture yang Anda sukai?",
+    "options": [
+      "Sederhana & fungsional",
+      "Berornamen & mewah",
+      "Kasar & logam",
+      "Hangat & natural"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Warna dominan yang Anda inginkan?",
+    "options": [
+      "Putih & abu-abu",
+      "Emas & maroon",
+      "Hitam & beton",
+      "Kayu & hijau muda"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Material utama yang Anda pilih?",
+    "options": [
+      "Kayu terang & kaca",
+      "Marmer & velvet",
+      "Besi & beton",
+      "Rotan & linen"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Cahaya ruangan yang Anda sukai?",
+    "options": [
+      "Terang & alami",
+      "Redup & hangat",
+      "Dramatis & fokus",
+      "Lembut & tersebar"
+    ]
+  }
+]

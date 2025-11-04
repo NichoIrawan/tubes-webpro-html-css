@@ -82,9 +82,26 @@ async function loadInitialData() {
         baseRoomCount: 3,
       };
 
-  // Load Quiz Questions
-  const storedQuestions = localStorage.getItem("quizQuestions");
-  state.quizQuestions = storedQuestions ? JSON.parse(storedQuestions) : [];
+  // === LOAD QUIZ QUESTIONS FROM JSON FILE ===
+async function loadQuizQuestionsFromJSON() {
+  
+  try {
+    const response = await fetch('../../data/quiz_question.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    state.quizQuestions = Array.isArray(data) ? data : [];
+    console.log('Quiz questions loaded from JSON:', state.quizQuestions);
+  } catch (error) {
+    console.error('Failed to load quiz_questions.json:', error);
+    // Fallback ke localStorage
+    const stored = localStorage.getItem("quizQuestions");
+    state.quizQuestions = stored ? JSON.parse(stored) : [];
+    console.log('Falling back to localStorage for quiz questions.');
+  }
+}
+
+// Di dalam loadInitialData(), ganti bagian quizQuestions:
+await loadQuizQuestionsFromJSON(); // Ganti baris lama
 
   // Load Quiz Results
   const storedResults = localStorage.getItem("quizResults");
@@ -663,7 +680,77 @@ function renderCalculator() {
 
 function renderQuiz() {
   const content = document.getElementById("quiz");
-  content.innerHTML = `<div class="card"><h3>Design Quiz</h3><p class="text-muted">Manajemen quiz akan ditampilkan di sini</p></div>`;
+  
+  // Format soal untuk ditampilkan
+  const questionsHtml = state.quizQuestions.map((q, index) => `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${q.question}</td>
+      <td>${q.options?.length || 0} opsi</td>
+      <td>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-icon" onclick="editQuizQuestion(${q.id})" title="Edit">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button class="btn btn-ghost btn-icon" onclick="deleteQuizQuestion(${q.id})" title="Hapus">
+            <svg class="icon" style="color: var(--destructive);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+
+  content.innerHTML = `
+    <div class="card">
+      <div class="flex-between mb-6">
+        <div>
+          <h3>Manajemen Design Quiz</h3>
+          <p class="text-sm text-muted mt-2">${state.quizQuestions.length} soal tersimpan</p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddQuizModal()">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Tambah Soal
+        </button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Pertanyaan</th>
+              <th>Opsi</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${questionsHtml || `<tr><td colspan="4" style="text-align:center;">Belum ada soal</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Hasil Quiz Pengguna -->
+    <div class="card mt-6">
+      <h3>Hasil Quiz Pengguna (${state.quizResults.length})</h3>
+      <div class="space-y-3 mt-3">
+        ${state.quizResults.map(r => `
+          <div style="padding: 0.75rem; border-radius: 0.5rem; background: var(--muted);">
+            <div><strong>${r.userName}</strong> (${r.userEmail})</div>
+            <div class="text-sm text-muted">Gaya: ${r.resultTitle} • ${new Date(r.timestamp).toLocaleString('id-ID')}</div>
+          </div>
+        `).join("") || "<p class='text-muted'>Belum ada hasil quiz.</p>"}
+      </div>
+    </div>
+  `;
 }
 
 function getStatusBadge(status) {
@@ -796,7 +883,7 @@ function openAddPortfolioModal() {
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal()">Batal</button>
+                <button class="btn btn-outline" onclick="closePortfolioModal()">Batal</button>
                 <button class="btn btn-primary" onclick="savePortfolio()">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     Simpan
@@ -935,11 +1022,17 @@ function saveService() {
 }
 
 function closeModal() {
-  const modal = document.getElementById("modalContainer");
-  modal.classList.remove("active");
-  setTimeout(() => {
-    modal.innerHTML = "";
-  }, 300);
+  try {
+      const modal = document.getElementById('modalContainer');
+      if (modal) {
+        modal.style.display = 'none';
+        setTimeout(() => {
+            modal.remove();
+        }, 100);
+      }
+  } catch (error) {
+      console.error('Error closing modal:', error);
+  }
 }
 
 function showToast(message, type = "success") {
@@ -1315,7 +1408,7 @@ function openAddPortfolioModal() {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="closePortfolioModal()">Batal</button>
                 <button type="button" class="btn btn-primary" onclick="savePortfolio()">Simpan Portfolio</button>
             </div>
         </div>
@@ -1479,14 +1572,14 @@ function updatePortfolio(id) {
 
     function finishUpdate() {
         saveToLocalStorage();
-        closeModal();
+        closePortfolioModal();
         renderPortfolio();
         renderStats();
         showToast('Portfolio berhasil diupdate!', 'success');
     }
 }
 
-function closeModal() {
+function closePortfolioModal() {
     try {
         const modal = document.getElementById('portfolioModal');
         if (modal) {
@@ -1519,4 +1612,186 @@ function handleStorageUpdate(e) {
         renderAllTabs();
         renderStats();
     }
+}
+
+// =============== QUIZ MANAGEMENT ===============
+
+function openAddQuizModal() {
+  const modalHTML = `
+    <div class="modal-content">
+      <!-- Tambahkan tombol close (X) di pojok kanan atas -->
+      <button class="modal-close-btn" onclick="closeModal()">×</button>
+      
+      <div class="modal-header">
+        <h3 class="modal-title">Tambah Soal Quiz</h3>
+        <p class="modal-description">Buat pertanyaan baru untuk Design Quiz</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="quizQuestion">Pertanyaan</label>
+          <input type="text" id="quizQuestion" placeholder="Contoh: Gaya desain apa yang paling Anda sukai?" required>
+        </div>
+        <div class="form-group">
+          <label>Opsi Jawaban</label>
+          <div id="quizOptionsContainer">
+            <div class="option-row">
+              <input type="text" name="quizOption" placeholder="Opsi 1" required>
+              <button type="button" class="btn btn-sm btn-ghost remove-option">x</button>
+            </div>
+            <div class="option-row">
+              <input type="text" name="quizOption" placeholder="Opsi 2" required>
+              <button type="button" class="btn btn-sm btn-ghost remove-option">x</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline mt-2" onclick="addQuizOption()">+ Tambah Opsi</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Batal</button>
+        <button class="btn btn-primary" onclick="saveQuizQuestion()">Simpan Soal</button>
+      </div>
+    </div>
+  `;
+  
+  const modal = document.createElement("div");
+  modal.innerHTML = modalHTML;
+  modal.id = "modalContainer";
+  document.body.appendChild(modal);
+  modal.classList.add("active");
+
+  // Setup remove button listener
+  setupOptionRemoveListeners();
+
+  // Setup close on click outside
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+function addQuizOption() {
+  const container = document.getElementById("quizOptionsContainer");
+  const newRow = document.createElement("div");
+  newRow.className = "option-row";
+  newRow.innerHTML = `
+    <input type="text" name="quizOption" placeholder="Opsi Baru" required>
+    <button type="button" class="btn btn-sm btn-ghost remove-option">x</button>
+  `;
+  container.appendChild(newRow);
+  setupOptionRemoveListeners();
+}
+
+function setupOptionRemoveListeners() {
+  document.querySelectorAll(".remove-option").forEach(btn => {
+    btn.onclick = function() {
+      if (document.querySelectorAll(".option-row").length > 2) {
+        this.parentElement.remove();
+      } else {
+        showToast("Minimal 2 opsi diperlukan!", "error");
+      }
+    };
+  });
+}
+
+function saveQuizQuestion() {
+  const questionText = document.getElementById("quizQuestion").value.trim();
+  const optionInputs = document.querySelectorAll("input[name='quizOption']");
+  const options = Array.from(optionInputs)
+    .map(input => input.value.trim())
+    .filter(opt => opt);
+
+  if (!questionText || options.length < 2) {
+    showToast("Pertanyaan dan minimal 2 opsi diperlukan!", "error");
+    return;
+  }
+
+  const newQuestion = {
+    id: state.quizQuestions.length > 0 
+      ? Math.max(...state.quizQuestions.map(q => q.id)) + 1 
+      : 1,
+    question: questionText,
+    options: options
+  };
+
+  state.quizQuestions.push(newQuestion);
+  localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
+  closeModal();
+  renderQuiz();
+  showToast("Soal quiz berhasil ditambahkan!", "success");
+}
+
+function editQuizQuestion(id) {
+  const q = state.quizQuestions.find(q => q.id === id);
+  if (!q) return;
+
+  const optionsHtml = q.options.map(opt => `
+    <div class="option-row">
+      <input type="text" name="quizOption" value="${opt}" required>
+      <button type="button" class="btn btn-sm btn-ghost remove-option">x</button>
+    </div>
+  `).join("");
+
+  const modalHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Soal Quiz</h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="editQuizQuestion">Pertanyaan</label>
+          <input type="text" id="editQuizQuestion" value="${q.question}" required>
+        </div>
+        <div class="form-group">
+          <label>Opsi Jawaban</label>
+          <div id="editQuizOptionsContainer">
+            ${optionsHtml}
+          </div>
+          <button type="button" class="btn btn-outline mt-2" onclick="addQuizOption()">+ Tambah Opsi</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Batal</button>
+        <button class="btn btn-primary" onclick="updateQuizQuestion(${id})">Update Soal</button>
+      </div>
+    </div>
+  `;
+  
+  const modal = document.getElementById("modalContainer");
+  modal.innerHTML = modalHTML;
+  modal.classList.add("active");
+  setupOptionRemoveListeners();
+  
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+function updateQuizQuestion(id) {
+  const questionText = document.getElementById("editQuizQuestion").value.trim();
+  const optionInputs = document.querySelectorAll("input[name='quizOption']");
+  const options = Array.from(optionInputs)
+    .map(input => input.value.trim())
+    .filter(opt => opt);
+
+  if (!questionText || options.length < 2) {
+    showToast("Pertanyaan dan minimal 2 opsi diperlukan!", "error");
+    return;
+  }
+
+  const q = state.quizQuestions.find(q => q.id === id);
+  q.question = questionText;
+  q.options = options;
+
+  localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
+  closeModal();
+  renderQuiz();
+  showToast("Soal quiz berhasil diperbarui!", "success");
+}
+
+function deleteQuizQuestion(id) {
+  if (confirm("Hapus soal quiz ini?")) {
+    state.quizQuestions = state.quizQuestions.filter(q => q.id !== id);
+    localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
+    renderQuiz();
+    showToast("Soal quiz berhasil dihapus!", "success");
+  }
 }
