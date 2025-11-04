@@ -87,25 +87,24 @@ async function loadInitialData() {
       };
 
   // === LOAD QUIZ QUESTIONS FROM JSON FILE ===
-async function loadQuizQuestionsFromJSON() {
-  
-  try {
-    const response = await fetch('../../data/quiz_question.json');
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    state.quizQuestions = Array.isArray(data) ? data : [];
-    console.log('Quiz questions loaded from JSON:', state.quizQuestions);
-  } catch (error) {
-    console.error('Failed to load quiz_questions.json:', error);
-    // Fallback ke localStorage
-    const stored = localStorage.getItem("quizQuestions");
-    state.quizQuestions = stored ? JSON.parse(stored) : [];
-    console.log('Falling back to localStorage for quiz questions.');
+  async function loadQuizQuestionsFromJSON() {
+    try {
+      const response = await fetch("../../data/quiz_question.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      state.quizQuestions = Array.isArray(data) ? data : [];
+      console.log("Quiz questions loaded from JSON:", state.quizQuestions);
+    } catch (error) {
+      console.error("Failed to load quiz_questions.json:", error);
+      // Fallback ke localStorage
+      const stored = localStorage.getItem("quizQuestions");
+      state.quizQuestions = stored ? JSON.parse(stored) : [];
+      console.log("Falling back to localStorage for quiz questions.");
+    }
   }
-}
 
-// Di dalam loadInitialData(), ganti bagian quizQuestions:
-await loadQuizQuestionsFromJSON(); // Ganti baris lama
+  // Di dalam loadInitialData(), ganti bagian quizQuestions:
+  await loadQuizQuestionsFromJSON(); // Ganti baris lama
 
   // Load Quiz Results
   const storedResults = localStorage.getItem("quizResults");
@@ -672,22 +671,28 @@ function renderCalculator() {
 
 function renderQuiz() {
   const content = document.getElementById("quiz");
-  
+
   // Format soal untuk ditampilkan
-  const questionsHtml = state.quizQuestions.map((q, index) => `
+  const questionsHtml = state.quizQuestions
+    .map(
+      (q, index) => `
     <tr>
       <td>${index + 1}</td>
       <td>${q.question}</td>
       <td>${q.options?.length || 0} opsi</td>
       <td>
         <div class="flex gap-2">
-          <button class="btn btn-ghost btn-icon" onclick="editQuizQuestion(${q.id})" title="Edit">
+          <button class="btn btn-ghost btn-icon" onclick="editQuizQuestion(${
+            q.id
+          })" title="Edit">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
             </svg>
           </button>
-          <button class="btn btn-ghost btn-icon" onclick="deleteQuizQuestion(${q.id})" title="Hapus">
+          <button class="btn btn-ghost btn-icon" onclick="deleteQuizQuestion(${
+            q.id
+          })" title="Hapus">
             <svg class="icon" style="color: var(--destructive);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -696,14 +701,18 @@ function renderQuiz() {
         </div>
       </td>
     </tr>
-  `).join("");
+  `
+    )
+    .join("");
 
   content.innerHTML = `
     <div class="card">
       <div class="flex-between mb-6">
         <div>
           <h3>Manajemen Design Quiz</h3>
-          <p class="text-sm text-muted mt-2">${state.quizQuestions.length} soal tersimpan</p>
+          <p class="text-sm text-muted mt-2">${
+            state.quizQuestions.length
+          } soal tersimpan</p>
         </div>
         <button class="btn btn-primary" onclick="openAddQuizModal()">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -724,7 +733,10 @@ function renderQuiz() {
             </tr>
           </thead>
           <tbody>
-            ${questionsHtml || `<tr><td colspan="4" style="text-align:center;">Belum ada soal</td></tr>`}
+            ${
+              questionsHtml ||
+              `<tr><td colspan="4" style="text-align:center;">Belum ada soal</td></tr>`
+            }
           </tbody>
         </table>
       </div>
@@ -734,12 +746,20 @@ function renderQuiz() {
     <div class="card mt-6">
       <h3>Hasil Quiz Pengguna (${state.quizResults.length})</h3>
       <div class="space-y-3 mt-3">
-        ${state.quizResults.map(r => `
+        ${
+          state.quizResults
+            .map(
+              (r) => `
           <div style="padding: 0.75rem; border-radius: 0.5rem; background: var(--muted);">
             <div><strong>${r.userName}</strong> (${r.userEmail})</div>
-            <div class="text-sm text-muted">Gaya: ${r.resultTitle} • ${new Date(r.timestamp).toLocaleString('id-ID')}</div>
+            <div class="text-sm text-muted">Gaya: ${r.resultTitle} • ${new Date(
+                r.timestamp
+              ).toLocaleString("id-ID")}</div>
           </div>
-        `).join("") || "<p class='text-muted'>Belum ada hasil quiz.</p>"}
+        `
+            )
+            .join("") || "<p class='text-muted'>Belum ada hasil quiz.</p>"
+        }
       </div>
     </div>
   `;
@@ -1015,15 +1035,15 @@ function saveService() {
 
 function closeModal() {
   try {
-      const modal = document.getElementById('modalContainer');
-      if (modal) {
-        modal.style.display = 'none';
-        setTimeout(() => {
-            modal.remove();
-        }, 100);
-      }
+    const modal = document.getElementById("modalContainer");
+    if (modal) {
+      modal.style.display = "none";
+      setTimeout(() => {
+        modal.remove();
+      }, 100);
+    }
   } catch (error) {
-      console.error('Error closing modal:', error);
+    console.error("Error closing modal:", error);
   }
 }
 
@@ -1565,53 +1585,54 @@ function updatePortfolio(id) {
   const imageInput = document.getElementById("editProjectImage");
   const portfolio = state.portfolios.find((p) => p.id === id);
 
-    function finishUpdate() {
-        saveToLocalStorage();
-        closePortfolioModal();
-        renderPortfolio();
-        renderStats();
-        showToast('Portfolio berhasil diupdate!', 'success');
-    }
-}
-
-function closePortfolioModal() {
-    try {
-        const modal = document.getElementById('portfolioModal');
-        if (modal) {
-            modal.style.display = 'none';
-            setTimeout(() => {
-                modal.remove();
-            }, 100);
-        }
-    } catch (error) {
-        console.error('Error closing modal:', error);
-  if (!portfolio) return;
-
-  // Update text fields
-  portfolio.title = form.title.value;
-  portfolio.category = form.category.value;
-  portfolio.description = form.description.value;
-  portfolio.completedDate = form.completedDate.value;
-  portfolio.showOnHomepage = form.showOnHomepage.checked;
-
-  // Handle image update if new image was selected
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      portfolio.imageUrl = e.target.result;
-      finishUpdate();
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    finishUpdate();
-  }
-
   function finishUpdate() {
     saveToLocalStorage();
-    closeModal();
+    closePortfolioModal();
     renderPortfolio();
     renderStats();
     showToast("Portfolio berhasil diupdate!", "success");
+  }
+}
+
+function closePortfolioModal() {
+  try {
+    const modal = document.getElementById("portfolioModal");
+    if (modal) {
+      modal.style.display = "none";
+      setTimeout(() => {
+        modal.remove();
+      }, 100);
+    }
+  } catch (error) {
+    console.error("Error closing modal:", error);
+    if (!portfolio) return;
+
+    // Update text fields
+    portfolio.title = form.title.value;
+    portfolio.category = form.category.value;
+    portfolio.description = form.description.value;
+    portfolio.completedDate = form.completedDate.value;
+    portfolio.showOnHomepage = form.showOnHomepage.checked;
+
+    // Handle image update if new image was selected
+    if (imageInput.files && imageInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        portfolio.imageUrl = e.target.result;
+        finishUpdate();
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      finishUpdate();
+    }
+
+    function finishUpdate() {
+      saveToLocalStorage();
+      closeModal();
+      renderPortfolio();
+      renderStats();
+      showToast("Portfolio berhasil diupdate!", "success");
+    }
   }
 }
 
@@ -1688,7 +1709,7 @@ function openAddQuizModal() {
       </div>
     </div>
   `;
-  
+
   const modal = document.createElement("div");
   modal.innerHTML = modalHTML;
   modal.id = "modalContainer";
@@ -1717,8 +1738,8 @@ function addQuizOption() {
 }
 
 function setupOptionRemoveListeners() {
-  document.querySelectorAll(".remove-option").forEach(btn => {
-    btn.onclick = function() {
+  document.querySelectorAll(".remove-option").forEach((btn) => {
+    btn.onclick = function () {
       if (document.querySelectorAll(".option-row").length > 2) {
         this.parentElement.remove();
       } else {
@@ -1732,8 +1753,8 @@ function saveQuizQuestion() {
   const questionText = document.getElementById("quizQuestion").value.trim();
   const optionInputs = document.querySelectorAll("input[name='quizOption']");
   const options = Array.from(optionInputs)
-    .map(input => input.value.trim())
-    .filter(opt => opt);
+    .map((input) => input.value.trim())
+    .filter((opt) => opt);
 
   if (!questionText || options.length < 2) {
     showToast("Pertanyaan dan minimal 2 opsi diperlukan!", "error");
@@ -1741,11 +1762,12 @@ function saveQuizQuestion() {
   }
 
   const newQuestion = {
-    id: state.quizQuestions.length > 0 
-      ? Math.max(...state.quizQuestions.map(q => q.id)) + 1 
-      : 1,
+    id:
+      state.quizQuestions.length > 0
+        ? Math.max(...state.quizQuestions.map((q) => q.id)) + 1
+        : 1,
     question: questionText,
-    options: options
+    options: options,
   };
 
   state.quizQuestions.push(newQuestion);
@@ -1756,15 +1778,19 @@ function saveQuizQuestion() {
 }
 
 function editQuizQuestion(id) {
-  const q = state.quizQuestions.find(q => q.id === id);
+  const q = state.quizQuestions.find((q) => q.id === id);
   if (!q) return;
 
-  const optionsHtml = q.options.map(opt => `
+  const optionsHtml = q.options
+    .map(
+      (opt) => `
     <div class="option-row">
       <input type="text" name="quizOption" value="${opt}" required>
       <button type="button" class="btn btn-sm btn-ghost remove-option">x</button>
     </div>
-  `).join("");
+  `
+    )
+    .join("");
 
   const modalHTML = `
     <div class="modal-content">
@@ -1790,12 +1816,12 @@ function editQuizQuestion(id) {
       </div>
     </div>
   `;
-  
+
   const modal = document.getElementById("modalContainer");
   modal.innerHTML = modalHTML;
   modal.classList.add("active");
   setupOptionRemoveListeners();
-  
+
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
   });
@@ -1805,15 +1831,15 @@ function updateQuizQuestion(id) {
   const questionText = document.getElementById("editQuizQuestion").value.trim();
   const optionInputs = document.querySelectorAll("input[name='quizOption']");
   const options = Array.from(optionInputs)
-    .map(input => input.value.trim())
-    .filter(opt => opt);
+    .map((input) => input.value.trim())
+    .filter((opt) => opt);
 
   if (!questionText || options.length < 2) {
     showToast("Pertanyaan dan minimal 2 opsi diperlukan!", "error");
     return;
   }
 
-  const q = state.quizQuestions.find(q => q.id === id);
+  const q = state.quizQuestions.find((q) => q.id === id);
   q.question = questionText;
   q.options = options;
 
@@ -1825,10 +1851,9 @@ function updateQuizQuestion(id) {
 
 function deleteQuizQuestion(id) {
   if (confirm("Hapus soal quiz ini?")) {
-    state.quizQuestions = state.quizQuestions.filter(q => q.id !== id);
+    state.quizQuestions = state.quizQuestions.filter((q) => q.id !== id);
     localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
     renderQuiz();
     showToast("Soal quiz berhasil dihapus!", "success");
   }
 }
-// ===================== User Management =======================
