@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function loadServices() {
   try {
     // Using relative path from the current location
-    const response = await fetch('../../data/service.json');
+    const response = await fetch("../../data/service.json");
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     state.services = Array.isArray(data.services) ? data.services : [];
-    console.log('Services loaded:', state.services); // Debug log
+    console.log("Services loaded:", state.services); // Debug log
   } catch (error) {
-    console.error('Error loading services:', error);
+    console.error("Error loading services:", error);
     // Fallback to localStorage if fetch fails
     const storedServices = localStorage.getItem("services");
     state.services = storedServices
@@ -40,7 +40,8 @@ async function loadServices() {
           {
             id: 1,
             name: "Desain Interior",
-            description: "Layanan desain interior lengkap untuk rumah dan kantor",
+            description:
+              "Layanan desain interior lengkap untuk rumah dan kantor",
             price: "Mulai dari Rp 10.000.000",
             duration: "4 bulan",
             isActive: true,
@@ -52,7 +53,10 @@ async function loadServices() {
 
 async function loadInitialData() {
   await loadServices(); // Load services first
-  
+
+  // Initialize users from user_admin module (async)
+  state.users = await userModule.initializeUsers();
+
   const storedPortfolios = localStorage.getItem("portfolios");
   state.portfolios = storedPortfolios
     ? JSON.parse(storedPortfolios)
@@ -101,18 +105,6 @@ async function loadInitialData() {
       startDate: "2025-09-15",
       budget: 150000000,
       progress: 65,
-    },
-  ];
-
-  // Sample Users
-  state.users = [
-    {
-      id: 1,
-      name: "Admin Utama",
-      email: "admin@cema.com",
-      role: "admin",
-      joinDate: "2024-01-01",
-      status: "active",
     },
   ];
 
@@ -192,13 +184,14 @@ function renderAllTabs() {
 
 // Render Stats
 function renderStats() {
+  const users = userModule.getUsers();
   const stats = {
     totalProjects: state.projects.length,
     activeProjects: state.projects.filter((p) => p.status === "in_progress")
       .length,
     completedProjects: state.projects.filter((p) => p.status === "completed")
       .length,
-    totalClients: state.users.filter((u) => u.role === "client").length,
+    totalClients: users.filter((u) => u.role === "client").length,
     totalRevenue: state.projects.reduce((sum, p) => sum + p.budget, 0),
     totalQuizResults: state.quizResults.length,
   };
@@ -335,8 +328,8 @@ function renderOverview() {
 
 // Render Portfolio Tab
 function renderPortfolio() {
-    console.log('Current portfolios:', state.portfolios); // Debug log
-    const content = document.getElementById("portfolio");
+  console.log("Current portfolios:", state.portfolios); // Debug log
+  const content = document.getElementById("portfolio");
   content.innerHTML = `
         <div class="card">
             <div class="flex-between mb-6">
@@ -652,8 +645,7 @@ function renderProjects() {
 }
 
 function renderUsers() {
-  const content = document.getElementById("users");
-  content.innerHTML = `<div class="card"><h3>User Management</h3><p class="text-muted">Daftar user akan ditampilkan di sini</p></div>`;
+  userModule.renderUsers();
 }
 
 function renderCalculator() {
@@ -1039,85 +1031,87 @@ function getStatusBadge(status) {
 
 // Save data to localStorage
 function saveToLocalStorage() {
-    try {
-        localStorage.setItem("portfolios", JSON.stringify(state.portfolios));
-        localStorage.setItem("services", JSON.stringify(state.services));
-        localStorage.setItem("calculatorSettings", JSON.stringify(state.calculatorSettings));
-        localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
-        localStorage.setItem("quizResults", JSON.stringify(state.quizResults));
-        console.log('Data saved successfully:', state.portfolios); // Debug log
-    } catch (error) {
-        console.error('Error saving to localStorage:', error);
-        showToast('Error saving data', 'error');
-    }
+  try {
+    localStorage.setItem("portfolios", JSON.stringify(state.portfolios));
+    localStorage.setItem("services", JSON.stringify(state.services));
+    localStorage.setItem(
+      "calculatorSettings",
+      JSON.stringify(state.calculatorSettings)
+    );
+    localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
+    localStorage.setItem("quizResults", JSON.stringify(state.quizResults));
+    console.log("Data saved successfully:", state.portfolios); // Debug log
+  } catch (error) {
+    console.error("Error saving to localStorage:", error);
+    showToast("Error saving data", "error");
+  }
 }
 
 // Function to save new portfolio
 function savePortfolio() {
-    try {
-        // Get form elements
-        const title = document.getElementById('title').value.trim();
-        const category = document.getElementById('category').value;
-        const description = document.getElementById('description').value.trim();
-        const completedDate = document.getElementById('completedDate').value;
-        const showOnHomepage = document.getElementById('showOnHomepage').checked;
-        const imageFile = document.getElementById('projectImage').files[0];
+  try {
+    // Get form elements
+    const title = document.getElementById("title").value.trim();
+    const category = document.getElementById("category").value;
+    const description = document.getElementById("description").value.trim();
+    const completedDate = document.getElementById("completedDate").value;
+    const showOnHomepage = document.getElementById("showOnHomepage").checked;
+    const imageFile = document.getElementById("projectImage").files[0];
 
-        // Validate required fields
-        if (!title || !category || !description || !completedDate || !imageFile) {
-            showToast('Please fill in all required fields', 'error');
-            return;
-        }
-
-        // Create FileReader for image
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                // Create new portfolio object
-                const newPortfolio = {
-                    id: Date.now(),
-                    title: title,
-                    category: category,
-                    imageUrl: e.target.result,
-                    description: description,
-                    completedDate: completedDate,
-                    showOnHomepage: showOnHomepage,
-                    isActive: true,
-                    createdAt: new Date().toISOString()
-                };
-
-                console.log('New portfolio created:', newPortfolio); // Debug log
-
-                // Add to state
-                state.portfolios.push(newPortfolio);
-
-                // Save to localStorage
-                saveToLocalStorage();
-
-                // Update UI
-                closeModal();
-                renderPortfolio();
-                renderStats();
-
-                showToast('Portfolio berhasil ditambahkan!', 'success');
-            } catch (error) {
-                console.error('Error creating portfolio:', error);
-                showToast('Error creating portfolio', 'error');
-            }
-        };
-
-        reader.onerror = function() {
-            console.error('Error reading file');
-            showToast('Error reading image file', 'error');
-        };
-
-        // Start reading the image file
-        reader.readAsDataURL(imageFile);
-
-    } catch (error) {
-        console.error('Error in savePortfolio:', error);
-        showToast('Error saving portfolio', 'error');
+    // Validate required fields
+    if (!title || !category || !description || !completedDate || !imageFile) {
+      showToast("Please fill in all required fields", "error");
+      return;
     }
+
+    // Create FileReader for image
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        // Create new portfolio object
+        const newPortfolio = {
+          id: Date.now(),
+          title: title,
+          category: category,
+          imageUrl: e.target.result,
+          description: description,
+          completedDate: completedDate,
+          showOnHomepage: showOnHomepage,
+          isActive: true,
+          createdAt: new Date().toISOString(),
+        };
+
+        console.log("New portfolio created:", newPortfolio); // Debug log
+
+        // Add to state
+        state.portfolios.push(newPortfolio);
+
+        // Save to localStorage
+        saveToLocalStorage();
+
+        // Update UI
+        closeModal();
+        renderPortfolio();
+        renderStats();
+
+        showToast("Portfolio berhasil ditambahkan!", "success");
+      } catch (error) {
+        console.error("Error creating portfolio:", error);
+        showToast("Error creating portfolio", "error");
+      }
+    };
+
+    reader.onerror = function () {
+      console.error("Error reading file");
+      showToast("Error reading image file", "error");
+    };
+
+    // Start reading the image file
+    reader.readAsDataURL(imageFile);
+  } catch (error) {
+    console.error("Error in savePortfolio:", error);
+    showToast("Error saving portfolio", "error");
+  }
 }
 
 // ===================== Portfolio Actions =====================
@@ -1143,10 +1137,10 @@ function togglePortfolioHomepage(id) {
 }
 
 function deletePortfolio(id) {
-    const portfolio = state.portfolios.find(p => p.id === id);
-    if (!portfolio) return;
+  const portfolio = state.portfolios.find((p) => p.id === id);
+  if (!portfolio) return;
 
-    const modalHTML = `
+  const modalHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Hapus Portfolio</h3>
@@ -1166,28 +1160,28 @@ function deletePortfolio(id) {
         </div>
     `;
 
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.id = 'portfolioModal';
-    modal.innerHTML = modalHTML;
-    document.body.appendChild(modal);
-    modal.style.display = 'block';
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.id = "portfolioModal";
+  modal.innerHTML = modalHTML;
+  document.body.appendChild(modal);
+  modal.style.display = "block";
 }
 
 function confirmDelete(id) {
-    state.portfolios = state.portfolios.filter(p => p.id !== id);
-    saveToLocalStorage();
-    closeModal();
-    renderPortfolio();
-    renderStats();
-    showToast('Portfolio berhasil dihapus!', 'success');
+  state.portfolios = state.portfolios.filter((p) => p.id !== id);
+  saveToLocalStorage();
+  closeModal();
+  renderPortfolio();
+  renderStats();
+  showToast("Portfolio berhasil dihapus!", "success");
 }
 
 function editPortfolio(id) {
-    const portfolio = state.portfolios.find(p => p.id === id);
-    if (!portfolio) return;
+  const portfolio = state.portfolios.find((p) => p.id === id);
+  if (!portfolio) return;
 
-    const modalHTML = `
+  const modalHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Edit Portfolio</h3>
@@ -1198,15 +1192,29 @@ function editPortfolio(id) {
                     <input type="hidden" id="portfolioId" value="${id}">
                     <div class="form-group">
                         <label for="editTitle">Judul Project</label>
-                        <input type="text" id="editTitle" name="title" required value="${portfolio.title}">
+                        <input type="text" id="editTitle" name="title" required value="${
+                          portfolio.title
+                        }">
                     </div>
                     
                     <div class="form-group">
                         <label for="editCategory">Kategori</label>
                         <select id="editCategory" name="category" required>
-                            <option value="Residential" ${portfolio.category === 'Residential' ? 'selected' : ''}>Residential</option>
-                            <option value="Commercial" ${portfolio.category === 'Commercial' ? 'selected' : ''}>Commercial</option>
-                            <option value="Interior" ${portfolio.category === 'Interior' ? 'selected' : ''}>Interior</option>
+                            <option value="Residential" ${
+                              portfolio.category === "Residential"
+                                ? "selected"
+                                : ""
+                            }>Residential</option>
+                            <option value="Commercial" ${
+                              portfolio.category === "Commercial"
+                                ? "selected"
+                                : ""
+                            }>Commercial</option>
+                            <option value="Interior" ${
+                              portfolio.category === "Interior"
+                                ? "selected"
+                                : ""
+                            }>Interior</option>
                         </select>
                     </div>
                     
@@ -1214,23 +1222,31 @@ function editPortfolio(id) {
                         <label for="editProjectImage">Foto Project</label>
                         <input type="file" id="editProjectImage" name="projectImage" accept="image/*">
                         <div id="editImagePreview" class="image-preview">
-                            <img src="${portfolio.imageUrl}" alt="Current Image">
+                            <img src="${
+                              portfolio.imageUrl
+                            }" alt="Current Image">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="editDescription">Deskripsi Project</label>
-                        <textarea id="editDescription" name="description" rows="4" required>${portfolio.description}</textarea>
+                        <textarea id="editDescription" name="description" rows="4" required>${
+                          portfolio.description
+                        }</textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="editCompletedDate">Tanggal Selesai</label>
-                        <input type="date" id="editCompletedDate" name="completedDate" required value="${portfolio.completedDate}">
+                        <input type="date" id="editCompletedDate" name="completedDate" required value="${
+                          portfolio.completedDate
+                        }">
                     </div>
                     
                     <div class="form-group">
                         <label class="checkbox-label">
-                            <input type="checkbox" id="editShowOnHomepage" name="showOnHomepage" ${portfolio.showOnHomepage ? 'checked' : ''}>
+                            <input type="checkbox" id="editShowOnHomepage" name="showOnHomepage" ${
+                              portfolio.showOnHomepage ? "checked" : ""
+                            }>
                             Tampilkan di Homepage
                         </label>
                     </div>
@@ -1243,31 +1259,31 @@ function editPortfolio(id) {
         </div>
     `;
 
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.id = 'portfolioModal';
-    modal.innerHTML = modalHTML;
-    document.body.appendChild(modal);
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.id = "portfolioModal";
+  modal.innerHTML = modalHTML;
+  document.body.appendChild(modal);
 
-    const imageInput = document.getElementById('editProjectImage');
-    const imagePreview = document.getElementById('editImagePreview');
-    
-    imageInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+  const imageInput = document.getElementById("editProjectImage");
+  const imagePreview = document.getElementById("editImagePreview");
 
-    modal.style.display = 'block';
+  imageInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  modal.style.display = "block";
 }
 
 function openAddPortfolioModal() {
-    const modalHTML = `
+  const modalHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Tambah Portfolio Baru</h3>
@@ -1321,28 +1337,28 @@ function openAddPortfolioModal() {
         </div>
     `;
 
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.id = 'portfolioModal';
-    modal.innerHTML = modalHTML;
-    document.body.appendChild(modal);
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.id = "portfolioModal";
+  modal.innerHTML = modalHTML;
+  document.body.appendChild(modal);
 
-    // Setup image preview
-    const imageInput = document.getElementById('projectImage');
-    const imagePreview = document.getElementById('imagePreview');
-    
-    imageInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+  // Setup image preview
+  const imageInput = document.getElementById("projectImage");
+  const imagePreview = document.getElementById("imagePreview");
 
-    modal.style.display = 'block';
+  imageInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  modal.style.display = "block";
 }
 
 // ===================== Services Actions =====================
@@ -1452,71 +1468,73 @@ function handleQuizResultsUpdate() {
 }
 
 function updatePortfolio(id) {
-    const form = document.getElementById('editPortfolioForm');
-    const imageInput = document.getElementById('editProjectImage');
-    const portfolio = state.portfolios.find(p => p.id === id);
-    
-    if (!portfolio) return;
+  const form = document.getElementById("editPortfolioForm");
+  const imageInput = document.getElementById("editProjectImage");
+  const portfolio = state.portfolios.find((p) => p.id === id);
 
-    // Update text fields
-    portfolio.title = form.title.value;
-    portfolio.category = form.category.value;
-    portfolio.description = form.description.value;
-    portfolio.completedDate = form.completedDate.value;
-    portfolio.showOnHomepage = form.showOnHomepage.checked;
+  if (!portfolio) return;
 
-    // Handle image update if new image was selected
-    if (imageInput.files && imageInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            portfolio.imageUrl = e.target.result;
-            finishUpdate();
-        };
-        reader.readAsDataURL(imageInput.files[0]);
-    } else {
-        finishUpdate();
-    }
+  // Update text fields
+  portfolio.title = form.title.value;
+  portfolio.category = form.category.value;
+  portfolio.description = form.description.value;
+  portfolio.completedDate = form.completedDate.value;
+  portfolio.showOnHomepage = form.showOnHomepage.checked;
 
-    function finishUpdate() {
-        saveToLocalStorage();
-        closeModal();
-        renderPortfolio();
-        renderStats();
-        showToast('Portfolio berhasil diupdate!', 'success');
-    }
+  // Handle image update if new image was selected
+  if (imageInput.files && imageInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      portfolio.imageUrl = e.target.result;
+      finishUpdate();
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    finishUpdate();
+  }
+
+  function finishUpdate() {
+    saveToLocalStorage();
+    closeModal();
+    renderPortfolio();
+    renderStats();
+    showToast("Portfolio berhasil diupdate!", "success");
+  }
 }
 
 function closeModal() {
-    try {
-        const modal = document.getElementById('portfolioModal');
-        if (modal) {
-            modal.style.display = 'none';
-            setTimeout(() => {
-                modal.remove();
-            }, 100);
-        }
-    } catch (error) {
-        console.error('Error closing modal:', error);
+  try {
+    const modal = document.getElementById("portfolioModal");
+    if (modal) {
+      modal.style.display = "none";
+      setTimeout(() => {
+        modal.remove();
+      }, 100);
     }
+  } catch (error) {
+    console.error("Error closing modal:", error);
+  }
 }
 
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-    
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.classList.add('fade-out');
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("fade-out");
+    setTimeout(() => toast.remove(), 500);
+  }, 3000);
 }
 
 function handleStorageUpdate(e) {
-    if (["portfolios", "services", "quizResults"].includes(e.key)) {
-        loadInitialData();
-        renderAllTabs();
-        renderStats();
-    }
+  if (["portfolios", "services", "quizResults"].includes(e.key)) {
+    loadInitialData();
+    renderAllTabs();
+    renderStats();
+  }
 }
+
+// ===================== User Management =======================
