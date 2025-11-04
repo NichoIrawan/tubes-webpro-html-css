@@ -320,7 +320,8 @@ function renderOverview() {
 
 // Render Portfolio Tab
 function renderPortfolio() {
-  const content = document.getElementById("portfolio");
+    console.log('Current portfolios:', state.portfolios); // Debug log
+    const content = document.getElementById("portfolio");
   content.innerHTML = `
         <div class="card">
             <div class="flex-between mb-6">
@@ -1021,15 +1022,87 @@ function getStatusBadge(status) {
   }
 }
 
+// Save data to localStorage
 function saveToLocalStorage() {
-  localStorage.setItem("portfolios", JSON.stringify(state.portfolios));
-  localStorage.setItem("services", JSON.stringify(state.services));
-  localStorage.setItem(
-    "calculatorSettings",
-    JSON.stringify(state.calculatorSettings)
-  );
-  localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
-  localStorage.setItem("quizResults", JSON.stringify(state.quizResults));
+    try {
+        localStorage.setItem("portfolios", JSON.stringify(state.portfolios));
+        localStorage.setItem("services", JSON.stringify(state.services));
+        localStorage.setItem("calculatorSettings", JSON.stringify(state.calculatorSettings));
+        localStorage.setItem("quizQuestions", JSON.stringify(state.quizQuestions));
+        localStorage.setItem("quizResults", JSON.stringify(state.quizResults));
+        console.log('Data saved successfully:', state.portfolios); // Debug log
+    } catch (error) {
+        console.error('Error saving to localStorage:', error);
+        showToast('Error saving data', 'error');
+    }
+}
+
+// Function to save new portfolio
+function savePortfolio() {
+    try {
+        // Get form elements
+        const title = document.getElementById('title').value.trim();
+        const category = document.getElementById('category').value;
+        const description = document.getElementById('description').value.trim();
+        const completedDate = document.getElementById('completedDate').value;
+        const showOnHomepage = document.getElementById('showOnHomepage').checked;
+        const imageFile = document.getElementById('projectImage').files[0];
+
+        // Validate required fields
+        if (!title || !category || !description || !completedDate || !imageFile) {
+            showToast('Please fill in all required fields', 'error');
+            return;
+        }
+
+        // Create FileReader for image
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                // Create new portfolio object
+                const newPortfolio = {
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    imageUrl: e.target.result,
+                    description: description,
+                    completedDate: completedDate,
+                    showOnHomepage: showOnHomepage,
+                    isActive: true,
+                    createdAt: new Date().toISOString()
+                };
+
+                console.log('New portfolio created:', newPortfolio); // Debug log
+
+                // Add to state
+                state.portfolios.push(newPortfolio);
+
+                // Save to localStorage
+                saveToLocalStorage();
+
+                // Update UI
+                closeModal();
+                renderPortfolio();
+                renderStats();
+
+                showToast('Portfolio berhasil ditambahkan!', 'success');
+            } catch (error) {
+                console.error('Error creating portfolio:', error);
+                showToast('Error creating portfolio', 'error');
+            }
+        };
+
+        reader.onerror = function() {
+            console.error('Error reading file');
+            showToast('Error reading image file', 'error');
+        };
+
+        // Start reading the image file
+        reader.readAsDataURL(imageFile);
+
+    } catch (error) {
+        console.error('Error in savePortfolio:', error);
+        showToast('Error saving portfolio', 'error');
+    }
 }
 
 // ===================== Portfolio Actions =====================
@@ -1055,45 +1128,206 @@ function togglePortfolioHomepage(id) {
 }
 
 function deletePortfolio(id) {
-  if (confirm("Yakin ingin menghapus portfolio ini?")) {
-    state.portfolios = state.portfolios.filter((p) => p.id !== id);
+    const portfolio = state.portfolios.find(p => p.id === id);
+    if (!portfolio) return;
+
+    const modalHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Hapus Portfolio</h3>
+                <button type="button" class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus portfolio "${portfolio.title}"?</p>
+                <div class="warning-text">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Tindakan ini tidak dapat dibatalkan.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete(${id})">Hapus Portfolio</button>
+            </div>
+        </div>
+    `;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'portfolioModal';
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
+    modal.style.display = 'block';
+}
+
+function confirmDelete(id) {
+    state.portfolios = state.portfolios.filter(p => p.id !== id);
     saveToLocalStorage();
+    closeModal();
     renderPortfolio();
     renderStats();
-  }
+    showToast('Portfolio berhasil dihapus!', 'success');
 }
 
 function editPortfolio(id) {
-  const portfolio = state.portfolios.find((p) => p.id === id);
-  if (!portfolio) return;
+    const portfolio = state.portfolios.find(p => p.id === id);
+    if (!portfolio) return;
 
-  const newTitle = prompt("Ubah judul portfolio:", portfolio.title);
-  if (newTitle) {
-    portfolio.title = newTitle;
-    saveToLocalStorage();
-    renderPortfolio();
-  }
+    const modalHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Portfolio</h3>
+                <button type="button" class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editPortfolioForm" class="form-grid">
+                    <input type="hidden" id="portfolioId" value="${id}">
+                    <div class="form-group">
+                        <label for="editTitle">Judul Project</label>
+                        <input type="text" id="editTitle" name="title" required value="${portfolio.title}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editCategory">Kategori</label>
+                        <select id="editCategory" name="category" required>
+                            <option value="Residential" ${portfolio.category === 'Residential' ? 'selected' : ''}>Residential</option>
+                            <option value="Commercial" ${portfolio.category === 'Commercial' ? 'selected' : ''}>Commercial</option>
+                            <option value="Interior" ${portfolio.category === 'Interior' ? 'selected' : ''}>Interior</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editProjectImage">Foto Project</label>
+                        <input type="file" id="editProjectImage" name="projectImage" accept="image/*">
+                        <div id="editImagePreview" class="image-preview">
+                            <img src="${portfolio.imageUrl}" alt="Current Image">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDescription">Deskripsi Project</label>
+                        <textarea id="editDescription" name="description" rows="4" required>${portfolio.description}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editCompletedDate">Tanggal Selesai</label>
+                        <input type="date" id="editCompletedDate" name="completedDate" required value="${portfolio.completedDate}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="editShowOnHomepage" name="showOnHomepage" ${portfolio.showOnHomepage ? 'checked' : ''}>
+                            Tampilkan di Homepage
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="updatePortfolio(${id})">Update Portfolio</button>
+            </div>
+        </div>
+    `;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'portfolioModal';
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
+
+    const imageInput = document.getElementById('editProjectImage');
+    const imagePreview = document.getElementById('editImagePreview');
+    
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    modal.style.display = 'block';
 }
 
 function openAddPortfolioModal() {
-  const title = prompt("Judul portfolio baru:");
-  if (!title) return;
+    const modalHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Portfolio Baru</h3>
+                <button type="button" class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="portfolioForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Judul Project</label>
+                        <input type="text" id="title" name="title" required placeholder="Masukkan judul project">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Kategori</label>
+                        <select id="category" name="category" required>
+                            <option value="">Pilih kategori</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Interior">Interior</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectImage">Foto Project</label>
+                        <input type="file" id="projectImage" name="projectImage" accept="image/*" required>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Deskripsi Project</label>
+                        <textarea id="description" name="description" rows="4" required placeholder="Deskripsi detail tentang project"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="completedDate">Tanggal Selesai</label>
+                        <input type="date" id="completedDate" name="completedDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showOnHomepage" name="showOnHomepage">
+                            Tampilkan di Homepage
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="savePortfolio()">Simpan Portfolio</button>
+            </div>
+        </div>
+    `;
 
-  const newPortfolio = {
-    id: Date.now(),
-    title,
-    category: "Uncategorized",
-    imageUrl: "https://via.placeholder.com/150",
-    description: "Deskripsi singkat proyek.",
-    completedDate: new Date().toISOString().split("T")[0],
-    showOnHomepage: false,
-    isActive: true,
-  };
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'portfolioModal';
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
 
-  state.portfolios.push(newPortfolio);
-  saveToLocalStorage();
-  renderPortfolio();
-  renderStats();
+    // Setup image preview
+    const imageInput = document.getElementById('projectImage');
+    const imagePreview = document.getElementById('imagePreview');
+    
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    modal.style.display = 'block';
 }
 
 // ===================== Services Actions =====================
@@ -1202,10 +1436,72 @@ function handleQuizResultsUpdate() {
   renderQuiz();
 }
 
+function updatePortfolio(id) {
+    const form = document.getElementById('editPortfolioForm');
+    const imageInput = document.getElementById('editProjectImage');
+    const portfolio = state.portfolios.find(p => p.id === id);
+    
+    if (!portfolio) return;
+
+    // Update text fields
+    portfolio.title = form.title.value;
+    portfolio.category = form.category.value;
+    portfolio.description = form.description.value;
+    portfolio.completedDate = form.completedDate.value;
+    portfolio.showOnHomepage = form.showOnHomepage.checked;
+
+    // Handle image update if new image was selected
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            portfolio.imageUrl = e.target.result;
+            finishUpdate();
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        finishUpdate();
+    }
+
+    function finishUpdate() {
+        saveToLocalStorage();
+        closeModal();
+        renderPortfolio();
+        renderStats();
+        showToast('Portfolio berhasil diupdate!', 'success');
+    }
+}
+
+function closeModal() {
+    try {
+        const modal = document.getElementById('portfolioModal');
+        if (modal) {
+            modal.style.display = 'none';
+            setTimeout(() => {
+                modal.remove();
+            }, 100);
+        }
+    } catch (error) {
+        console.error('Error closing modal:', error);
+    }
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
 function handleStorageUpdate(e) {
-  if (["portfolios", "services", "quizResults"].includes(e.key)) {
-    loadInitialData();
-    renderAllTabs();
-    renderStats();
-  }
+    if (["portfolios", "services", "quizResults"].includes(e.key)) {
+        loadInitialData();
+        renderAllTabs();
+        renderStats();
+    }
 }
