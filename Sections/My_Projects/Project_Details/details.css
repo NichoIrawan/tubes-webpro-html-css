@@ -1,8 +1,6 @@
-/* Base styles */
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  line-height: 120%;
 }
 
 body {
@@ -12,19 +10,28 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 6.67dvw 5dvw 0dvw 5dvw;
+  gap: 1.5rem;
+  margin-bottom: 2dvw;
 }
 
 /* Header styles */
 .header {
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.33rem;
 }
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
 }
 
 .text-muted {
@@ -33,18 +40,19 @@ h1 {
 
 /* Card styles */
 .card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .card-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .icon-container {
@@ -94,8 +102,8 @@ h1 {
   background-image: url("/Assets/icons/alert-circle.svg");
 }
 
-.icon-trending-up {
-  background-image: url("/Assets/icons/trending-up.svg");
+.icon-dollar-sign {
+  background-image: url("/Assets/icons/dollar-sign.svg");
 }
 
 .icon-credit-card {
@@ -103,7 +111,11 @@ h1 {
 }
 
 .icon-calendar {
-  background-image: url("/Assets/icons/.svg");
+  background-image: url("/Assets/icons/calendar.svg");
+}
+
+.icon-calendar-plus {
+  background-image: url("/Assets/icons/calendar-plus.svg");
 }
 
 .icon-message-square {
@@ -143,8 +155,13 @@ h1 {
 .project-header-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.left-header-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.33rem;
 }
 
 .status-badge {
@@ -156,20 +173,21 @@ h1 {
 
 .badge {
   padding: 0.5rem 1rem;
-  border-radius: 999px;
+  border-radius: 8px;
   background: #8cc53e;
   color: white;
 }
 
 /* Progress Bar styles */
 .progress-section {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .progress-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
 }
 
 .progress-bar {
@@ -189,13 +207,34 @@ h1 {
 /* Grid Layout */
 .project-meta-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.33rem;
+}
+
+.meta-item h4 {
+  font-size: 1rem;
+  color: #666;
+  font-weight: lighter;
+}
+
+.meta-item p {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#spent {
+  color: #8cc53e;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
@@ -204,11 +243,24 @@ h1 {
   grid-row: span 2;
 }
 
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .timeline-item {
   display: flex;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-item-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .timeline-icon {
@@ -221,40 +273,34 @@ h1 {
   flex-shrink: 0;
 }
 
-/* Budget styles */
-.budget-card {
-  grid-row: span 2;
-}
-
-.budget-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.stat-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #f5f5f5;
-  border-radius: 0.5rem;
-}
-
-.stat-card.highlight {
-  background: rgba(140, 197, 62, 0.1);
-}
-
 /* Schedule styles */
 .schedule-card {
   grid-row: span 2;
 }
 
+.meeting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .meeting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
   padding: 1rem;
   background: #f5f5f5;
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
+}
+
+.meeting-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.meeting-item .badge {
+  width: fit-content;
 }
 
 /* Chat styles */

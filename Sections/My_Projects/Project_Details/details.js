@@ -1,32 +1,11 @@
-import "../../Components/navbar.js";
-import "../../Components/footer.js";
+import "../../../Components/navbar.js";
+import "../../../Components/footer.js";
 
 // Get project ID from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-const projectId = urlParams.get("id") || "1"; // Default to '1' if no ID provided
+const projectId = urlParams.get("id") || "PRJ0001"; // Default to 'PRJ0001' if no ID provided
 
-// Project data (simulated - replace with fetch from your data source)
-const allProjects = [
-  {
-    id: "1",
-    name: "Renovasi Rumah Utama",
-    status: "in_progress",
-    progress: 65,
-    phase: "Desain 3D",
-    startDate: "15 Sep 2025",
-    estimatedEnd: "15 Des 2025",
-    budget: 150000000,
-    spent: 97500000,
-    timeline: [
-      { phase: "Konsultasi", status: "completed", date: "15 Sep" },
-      { phase: "Desain Konsep", status: "completed", date: "25 Sep" },
-      { phase: "Desain 3D", status: "in_progress", date: "10 Okt" },
-      { phase: "Revisi", status: "pending", date: "TBD" },
-      { phase: "Eksekusi", status: "pending", date: "TBD" },
-    ],
-  },
-  // Add more projects as needed
-];
+let currentProject = null;
 
 const upcomingMeetings = [
   {
@@ -62,6 +41,18 @@ function getStatusConfig(status) {
       return { icon: "clock", color: "#E2B546", label: "Berlangsung" };
     case "pending":
       return { icon: "alert-circle", color: "#868686", label: "Menunggu" };
+    case "IN_CONSTRUCTION":
+      return { icon: "clock", color: "#E2B546", label: "Berlangsung" };
+    case "CONFIRMATION":
+      return { icon: "clock", color: "#E2B546", label: "Konfirmasi" };
+    case "PAYMENT":
+      return { icon: "clock", color: "#E2B546", label: "Pembayaran" };
+    case "DONE":
+      return { icon: "check-circle", color: "#8CC55A", label: "Selesai" };
+    case "CANCELLED":
+      return { icon: "alert-circle", color: "#868686", label: "Dibatalkan" };
+    case "RETENTION":
+      return { icon: "check-circle", color: "#8CC55A", label: "Pemeliharaan" };
     default:
       return { icon: "clock", color: "#868686", label: "Unknown" };
   }
@@ -70,8 +61,14 @@ function getStatusConfig(status) {
 // Initialize page data
 function initializeProject(project) {
   // Update project header
-  document.getElementById("project-name").textContent = project.name;
+  document.getElementById("project-name").textContent = project.nama_proyek;
   document.getElementById("project-phase").textContent = project.phase;
+
+  // Update status badge
+  const statusConfig = getStatusConfig(project.status);
+  document.getElementById("status-badge").textContent = statusConfig.label;
+  document.getElementById("status-badge").style.backgroundColor =
+    statusConfig.color;
 
   // Update progress
   document.getElementById(
@@ -79,29 +76,9 @@ function initializeProject(project) {
   ).textContent = `${project.progress}%`;
   document.getElementById("progress-fill").style.width = `${project.progress}%`;
 
-  // Update dates and budget
+  // Update dates
   document.getElementById("start-date").textContent = project.startDate;
   document.getElementById("end-date").textContent = project.estimatedEnd;
-  document.getElementById("budget").textContent = formatCurrency(
-    project.budget
-  );
-  document.getElementById("spent").textContent = formatCurrency(project.spent);
-
-  // Update budget card
-  const budgetPercentage = (project.spent / project.budget) * 100;
-  document.getElementById(
-    "budget-percentage"
-  ).textContent = `${budgetPercentage.toFixed(0)}%`;
-  document.getElementById("budget-fill").style.width = `${budgetPercentage}%`;
-  document.getElementById("total-budget").textContent = formatCurrency(
-    project.budget
-  );
-  document.getElementById("total-spent").textContent = formatCurrency(
-    project.spent
-  );
-  document.getElementById("remaining-budget").textContent = formatCurrency(
-    project.budget - project.spent
-  );
 
   // Render timeline
   renderTimeline(project.timeline);
@@ -114,20 +91,21 @@ function renderTimeline(timeline) {
       const status = getStatusConfig(item.status);
       return `
       <div class="timeline-item">
-        <div class="timeline-icon" style="background: ${status.color}20">
-          <div class="icon icon-${
-            status.icon
-          }" style="filter: brightness(0) saturate(100%) ${status.color
+        <div class="timeline-item-header">
+          <div class="timeline-icon" style="background: ${status.color}20">
+            <div class="icon icon-${
+              status.icon
+            }" style="filter: brightness(0) saturate(100%) ${status.color
         .replace("#", "url(#")
         .toLowerCase()}"></div>
+          </div>
+          <div>
+            <div class="timeline-phase">${item.phase}</div>
+            <div class="timeline-date">${item.date}</div>
+          </div>
+          </div>
+          <div class="badge" style="background: ${status.color}">${status.label}
         </div>
-        <div>
-          <div class="timeline-phase">${item.phase}</div>
-          <div class="timeline-date">${item.date}</div>
-        </div>
-        <div class="badge" style="background: ${status.color}">${
-        status.label
-      }</div>
       </div>
     `;
     })
@@ -219,17 +197,34 @@ function navigateTo(page, id) {
 }
 
 // Initialize page
-document.addEventListener("DOMContentLoaded", () => {
-  const project = allProjects.find((p) => p.id === projectId) || allProjects[0];
-  initializeProject(project);
-  renderMeetings();
-  loadChatMessages();
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    // Fetch projects data
+    const response = await fetch("/Data/projects.json");
+    const data = await response.json();
+    const projects = data.projects;
 
-  // Add event listener for chat input
-  const messageInput = document.getElementById("message-input");
-  messageInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendMessage();
+    // Find the project with matching ID
+    currentProject = projects.find((p) => p.id_proyek === projectId);
+
+    if (!currentProject) {
+      console.error("Project not found:", projectId);
+      // Fallback to first project
+      currentProject = projects[0];
     }
-  });
+
+    initializeProject(currentProject);
+    renderMeetings();
+    loadChatMessages();
+
+    // Add event listener for chat input
+    const messageInput = document.getElementById("message-input");
+    messageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  } catch (error) {
+    console.error("Error loading project data:", error);
+  }
 });
