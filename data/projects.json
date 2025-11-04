@@ -9,7 +9,18 @@
       "status": "IN_CONSTRUCTION",
       "harga_jasa": 250000000,
       "jenis_proyek": "RUMAH",
-      "jenis_jasa": "DESIGN_CONSTRUCT"
+      "jenis_jasa": "DESIGN_CONSTRUCT",
+      "progress": 65,
+      "phase": "Desain 3D",
+      "startDate": "15 Sep 2025",
+      "estimatedEnd": "15 Des 2025",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "15 Sep" },
+        { "phase": "Desain Konsep", "status": "completed", "date": "25 Sep" },
+        { "phase": "Desain 3D", "status": "in_progress", "date": "10 Okt" },
+        { "phase": "Revisi", "status": "pending", "date": "TBD" },
+        { "phase": "Eksekusi", "status": "pending", "date": "TBD" }
+      ]
     },
     {
       "id_proyek": "PRJ0002",
@@ -20,7 +31,16 @@
       "status": "CONFIRMATION",
       "harga_jasa": 75000000,
       "jenis_proyek": "APARTMENT",
-      "jenis_jasa": "DESIGN"
+      "jenis_jasa": "DESIGN",
+      "progress": 25,
+      "phase": "Menunggu Approval",
+      "startDate": "20 Okt 2025",
+      "estimatedEnd": "20 Feb 2026",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "20 Okt" },
+        { "phase": "Desain Konsep", "status": "in_progress", "date": "25 Okt" },
+        { "phase": "Approval", "status": "pending", "date": "TBD" }
+      ]
     },
     {
       "id_proyek": "PRJ0003",
@@ -31,7 +51,18 @@
       "status": "PAYMENT",
       "harga_jasa": 1500000000,
       "jenis_proyek": "KOMERSIL",
-      "jenis_jasa": "CONSTRUCT_ONLY"
+      "jenis_jasa": "CONSTRUCT_ONLY",
+      "progress": 80,
+      "phase": "Eksekusi",
+      "startDate": "1 Agu 2025",
+      "estimatedEnd": "1 Des 2025",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Agu" },
+        { "phase": "Desain Konsep", "status": "completed", "date": "10 Agu" },
+        { "phase": "Desain 3D", "status": "completed", "date": "25 Agu" },
+        { "phase": "Revisi", "status": "completed", "date": "5 Sep" },
+        { "phase": "Eksekusi", "status": "in_progress", "date": "15 Sep" }
+      ]
     },
     {
       "id_proyek": "PRJ0004",
@@ -42,7 +73,18 @@
       "status": "DONE",
       "harga_jasa": 350000000,
       "jenis_proyek": "KOMERSIL",
-      "jenis_jasa": "DESIGN_CONSTRUCT"
+      "jenis_jasa": "DESIGN_CONSTRUCT",
+      "progress": 100,
+      "phase": "Selesai",
+      "startDate": "1 Jun 2025",
+      "estimatedEnd": "1 Okt 2025",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Jun" },
+        { "phase": "Desain Konsep", "status": "completed", "date": "10 Jun" },
+        { "phase": "Desain 3D", "status": "completed", "date": "25 Jun" },
+        { "phase": "Revisi", "status": "completed", "date": "5 Jul" },
+        { "phase": "Eksekusi", "status": "completed", "date": "15 Jul" }
+      ]
     },
     {
       "id_proyek": "PRJ0005",
@@ -53,7 +95,16 @@
       "status": "CANCELLED",
       "harga_jasa": 45000000,
       "jenis_proyek": "APARTMENT",
-      "jenis_jasa": "DESIGN"
+      "jenis_jasa": "DESIGN",
+      "progress": 15,
+      "phase": "Dibatalkan",
+      "startDate": "1 Sep 2025",
+      "estimatedEnd": "1 Des 2025",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Sep" },
+        { "phase": "Desain Konsep", "status": "pending", "date": "TBD" },
+        { "phase": "Approval", "status": "pending", "date": "TBD" }
+      ]
     },
     {
       "id_proyek": "PRJ0006",
@@ -64,7 +115,18 @@
       "status": "RETENTION",
       "harga_jasa": 800000000,
       "jenis_proyek": "RUMAH",
-      "jenis_jasa": "DESIGN_CONSTRUCT"
+      "jenis_jasa": "DESIGN_CONSTRUCT",
+      "progress": 95,
+      "phase": "Masa Pemeliharaan",
+      "startDate": "1 Mei 2025",
+      "estimatedEnd": "1 Sep 2025",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Mei" },
+        { "phase": "Desain Konsep", "status": "completed", "date": "10 Mei" },
+        { "phase": "Desain 3D", "status": "completed", "date": "25 Mei" },
+        { "phase": "Revisi", "status": "completed", "date": "5 Jun" },
+        { "phase": "Eksekusi", "status": "completed", "date": "15 Jun" }
+      ]
     },
     {
       "id_proyek": "PRJ0007",
@@ -75,7 +137,16 @@
       "status": "CONFIRMATION",
       "harga_jasa": 75000000,
       "jenis_proyek": "APARTMENT",
-      "jenis_jasa": "DESIGN"
+      "jenis_jasa": "DESIGN",
+      "progress": 10,
+      "phase": "Menunggu Konfirmasi",
+      "startDate": "1 Nov 2025",
+      "estimatedEnd": "1 Mar 2026",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Nov" },
+        { "phase": "Desain Konsep", "status": "pending", "date": "TBD" },
+        { "phase": "Approval", "status": "pending", "date": "TBD" }
+      ]
     },
     {
       "id_proyek": "PRJ0007",
@@ -86,7 +157,16 @@
       "status": "CONFIRMATION",
       "harga_jasa": 75000000,
       "jenis_proyek": "APARTMENT",
-      "jenis_jasa": "DESIGN"
+      "jenis_jasa": "DESIGN",
+      "progress": 10,
+      "phase": "Menunggu Konfirmasi",
+      "startDate": "1 Nov 2025",
+      "estimatedEnd": "1 Mar 2026",
+      "timeline": [
+        { "phase": "Konsultasi", "status": "completed", "date": "1 Nov" },
+        { "phase": "Desain Konsep", "status": "pending", "date": "TBD" },
+        { "phase": "Approval", "status": "pending", "date": "TBD" }
+      ]
     }
   ]
 }
