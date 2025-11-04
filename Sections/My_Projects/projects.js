@@ -94,7 +94,9 @@ function renderOngoingProjectWindow(ongoingProjects, activeIndex = 1) {
           <p>${getStatusLabel(project.status)}</p>
         </div>
       </div>
-      <a class="button-primary white-arrow" href="#">
+      <a class="button-primary white-arrow" href="/Sections/My_Projects/Project_Details/page.html?id=${
+        project.id_proyek
+      }">
         See Details
         <img src="/Assets/arrow_forward.svg" alt="arrow_forward">
       </a>
@@ -177,7 +179,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           <h3>${project.nama_proyek}</h3>
           <p>${getTypeLabel(project.jenis_proyek)}</p>
         </div>
-        <a class="button-primary black-arrow" href="#">
+        <a class="button-primary black-arrow" href="/Sections/My_Projects/Project_Details/page.html?id=${
+          project.id_proyek
+        }">
           See Details
           <img src="/Assets/arrow_forward.svg" alt="arrow_forward">
         </a>
