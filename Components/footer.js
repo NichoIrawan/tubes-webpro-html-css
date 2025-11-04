@@ -66,10 +66,12 @@ class FooterComponent extends HTMLElement {
           </div>
         </div>
 
-        <div class="footer-bottom">&copy; ${new Date().getFullYear()} Company X. All rights reserved.</div>
-      </footer>
-    `;
+                <div class="footer-bottom">
+                    &copy; 2025 Cema Construction. All rights reserved.
+                </div>
+            </footer>
+        `;
   }
 }
 
-customElements.define('footer-component', FooterComponent);
+customElements.define("footer-component", FooterComponent);

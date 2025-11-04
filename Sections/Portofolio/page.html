@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - CemaDesign</title>
+    <link rel="stylesheet" href="porto.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/Components/navbar.js"></script>
+    <script src="/Components/footer.js"></script>
+    <script src="/Components/chat.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <navigation-bar></navigation-bar>
+    <div class="wrapper">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-overlay">
+                <div class="overlay-circle overlay-circle-1"></div>
+                <div class="overlay-circle overlay-circle-2"></div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="portfolio-badge">Portfolio Kami</div>
+                    <h1>Proyek yang Telah Kami Kerjakan</h1>
+                    <p>Jelajahi koleksi lengkap proyek desain dan arsitektur yang telah kami selesaikan dengan penuh dedikasi dan kreativitas</p>
+                </div>
+
+                <div class="search-filter-container">
+                    <div class="search-box">
+                        <div class="search-input">
+                            <i data-feather="search" class="search-icon"></i>
+                            <input type="text" placeholder="Cari portfolio berdasarkan nama atau deskripsi..." id="searchInput">
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-label">
+                                <i data-feather="filter"></i>
+                                <span>Kategori:</span>
+                            </div>
+                            <div class="filter-buttons" id="categoryFilters"></div>
+
+                            <div class="grid-toggle">
+                                <button class="grid-button" data-grid="2">
+                                    <i data-feather="layout"></i>
+                                </button>
+                                <button class="grid-button active" data-grid="3">
+                                    <i data-feather="grid"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="results-count" id="resultsCount">
+                            Menampilkan 0 dari 0 portfolio
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-grid">
+            <div class="container">
+                <div id="portfolioGrid" class="grid-3">
+                </div>
+
+                <div id="noResults" class="no-results hidden">
+                    <div class="empty-state">
+                        <h3>Tidak ada portfolio ditemukan</h3>
+                        <p>Coba ubah filter atau kata kunci pencarian Anda</p>
+                        <button id="resetFilters" class="reset-button">Reset Filter</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Siap Memulai Proyek Anda?</h2>
+                    <p>Mari wujudkan visi Anda menjadi kenyataan bersama tim profesional kami</p>
+                    <div class="cta-buttons">
+                        <a href="javascript:navigateTo('booking')" class="cta-btn booking">
+                            Konsultasi Gratis <i data-feather="arrow-right"></i>
+                        </a>
+                        <a href="javascript:navigateTo('contact')" class="cta-btn calculator">
+                            Hubungi Kami
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="portfolioModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+
+        <chat-widget></chat-widget>
+    </div>
+    <footer-component></footer-component>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            feather.replace();
+        });
+    </script>
+    <script src="porto.js"></script>
+</body>
+</html>

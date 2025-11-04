@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Project Details - CEMA</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='details.css'>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+</head>
+
+<body>
+    <navigation-bar></navigation-bar>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <button class="button-ghost" onclick="window.history.back()">
+                <div class="icon icon-arrow-left"></div>
+                Kembali ke Proyek
+            </button>
+            <h1>Dashboard Klien</h1>
+            <p class="text-muted">Selamat datang kembali, Budi!</p>
+        </div>
+
+        <!-- Project Header Card -->
+        <div class="card project-header">
+            <div class="project-header-top">
+                <div>
+                    <h2 id="project-name">Renovasi Rumah Utama</h2>
+                    <div class="status-badge">
+                        <div class="icon icon-clock icon-warning" id="status-icon"></div>
+                        <span id="project-phase">Desain 3D</span>
+                    </div>
+                </div>
+                <div class="badge" id="status-badge">Berlangsung</div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>Progress Proyek</span>
+                    <span id="progress-percentage">65%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="project-meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Mulai</div>
+                    <div class="meta-value" id="start-date">15 Sep 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Estimasi Selesai</div>
+                    <div class="meta-value" id="end-date">15 Des 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Budget</div>
+                    <div class="meta-value" id="budget">Rp 150.000.000</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Terpakai</div>
+                    <div class="meta-value highlight" id="spent">Rp 97.500.000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- Timeline Card -->
+            <div class="card timeline-card">
+                <div class="card-header">
+                    <div class="icon-container primary">
+                        <div class="icon icon-clock icon-primary"></div>
+                    </div>
+                    <h3>Timeline Proyek</h3>
+                </div>
+                <div class="timeline-list" id="timeline-list">
+                    <!-- Timeline items will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Budget Card -->
+            <div class="card budget-card">
+                <div class="card-header">
+                    <div class="icon-container warning">
+                        <div class="icon icon-trending-up icon-warning"></div>
+                    </div>
+                    <h3>Budget & Pengeluaran</h3>
+                </div>
+
+                <div class="budget-progress">
+                    <div class="progress-header">
+                        <span>Penggunaan Budget</span>
+                        <span id="budget-percentage">65%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="budget-fill"></div>
+                    </div>
+                </div>
+
+                <div class="budget-stats">
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-label">Total Budget</div>
+                            <div class="stat-value" id="total-budget">Rp 150.000.000</div>
+                        </div>
+                        <div class="icon icon-trending-up icon-muted"></div>
+                    </div>
+
+                    <div class="stat-card highlight">
+                        <div>
+                            <div class="stat-label">Terpakai</div>
+                            <div class="stat-value" id="total-spent">Rp 97.500.000</div>
+                        </div>
+                        <div class="icon icon-check-circle icon-primary"></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-label">Sisa Budget</div>
+                            <div class="stat-value" id="remaining-budget">Rp 52.500.000</div>
+                        </div>
+                        <div class="icon icon-credit-card icon-muted"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Card -->
+            <div class="card schedule-card">
+                <div class="card-header">
+                    <div class="icon-container success">
+                        <div class="icon icon-calendar icon-primary"></div>
+                    </div>
+                    <h3>Jadwal Meeting</h3>
+                </div>
+                <div class="meeting-list" id="meeting-list">
+                    <!-- Meeting items will be inserted here by JavaScript -->
+                </div>
+                <button class="button-outline full-width" onclick="navigateTo('booking')">
+                    <div class="icon icon-calendar icon-primary"></div>
+                    Jadwalkan Meeting Baru
+                </button>
+            </div>
+
+            <!-- Chat Card -->
+            <div class="card chat-card">
+                <div class="chat-header">
+                    <div class="card-header">
+                        <div class="icon-container primary">
+                            <div class="icon icon-message-square icon-primary"></div>
+                        </div>
+                        <div>
+                            <h3>Chat dengan Admin</h3>
+                            <div class="online-status">Online</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Chat messages will be inserted here by JavaScript -->
+                </div>
+
+                <div class="chat-input">
+                    <div class="input-group">
+                        <input type="text" id="message-input" placeholder="Ketik pesan...">
+                        <button class="button-primary" onclick="sendMessage()">
+                            <div class="icon icon-send icon-white"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Card -->
+            <div class="card actions-card">
+                <div class="card-header">
+                    <div class="icon-container primary">
+                        <div class="icon icon-check-circle icon-primary"></div>
+                    </div>
+                    <h3>Aksi Cepat</h3>
+                </div>
+                <div class="actions-grid">
+                    <button class="action-button primary" onclick="navigateTo('payment')">
+                        <div class="icon icon-credit-card icon-white"></div>
+                        <span>Bayar Invoice</span>
+                    </button>
+                    <button class="action-button outline" onclick="navigateTo('booking')">
+                        <div class="icon icon-calendar icon-primary"></div>
+                        <span>Jadwalkan Meeting</span>
+                    </button>
+                    <button class="action-button outline" onclick="navigateTo('contact')">
+                        <div class="icon icon-message-square icon-primary"></div>
+                        <span>Hubungi Kami</span>
+                    </button>
+                    <button class="action-button outline" onclick="navigateTo('myproject')">
+                        <div class="icon icon-file-text icon-primary"></div>
+                        <span>Lihat Semua Proyek</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer-component></footer-component>
+
+    <script type="module" src="details.js"></script>
+</body>
+
+</html>

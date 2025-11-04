@@ -1,0 +1,25 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "sender": "admin",
+      "text": "Halo! Ada yang bisa kami bantu dengan proyek Anda?",
+      "time": "10:30",
+      "timestamp": "2025-11-03T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "sender": "client",
+      "text": "Ya, saya ingin menanyakan tentang progress desain 3D",
+      "time": "10:35",
+      "timestamp": "2025-11-03T10:35:00.000Z"
+    },
+    {
+      "id": 3,
+      "sender": "admin",
+      "text": "Baik, untuk desain 3D saat ini sudah mencapai 65% dan akan selesai dalam 2 hari ke depan",
+      "time": "10:37",
+      "timestamp": "2025-11-03T10:37:00.000Z"
+    }
+  ]
+}
