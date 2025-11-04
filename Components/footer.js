@@ -33,7 +33,7 @@ class FooterComponent extends HTMLElement {
       <footer class="modern-footer">
         <div class="footer-content">
           <div class="footer-section company-info">
-            <h2 class="company-name">Company X</h2>
+            <h2 class="company-name">CEMA DESIGN</h2>
             <p class="company-desc">Solusi terpercaya untuk arsitektur dan desain interior Anda.</p>
           </div>
 
