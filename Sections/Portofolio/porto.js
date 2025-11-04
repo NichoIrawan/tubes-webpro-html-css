@@ -41,28 +41,39 @@ const defaultPortfolios = [
 ];
 
 // Get portfolios from localStorage or use default data
-function getPortfolios() {
-    const stored = localStorage.getItem('portfolios');
-    if (stored) {
-        return JSON.parse(stored);
+async function getPortfolios() {
+    try {
+        const stored = localStorage.getItem('portfolios');
+        if (stored) {
+            console.log('Fetching portfolios...');
+            return JSON.parse(stored);
+        }
+        const response = await fetch("../../data/portfolios.json");
+        if (!response.ok) {
+            throw new Error('Failed to fetch portfolios');
+        }
+        const data = await response.json();
+        return data.portfolios; // Access the portfolios array from the response
+    } catch (error) {
+        console.error('Error loading portfolios:', error);
+        return defaultPortfolios;
     }
-    return defaultPortfolios;
 }
 
 // DOM Elements
 let searchInput, categoryFilters, portfolioGrid, noResults, resetFiltersButton;
 
 // Initialize page
-function initializePage() {
-    // Load portfolios
-    portfolios = getPortfolios();
-    
+async function initializePage() {
     // Get DOM elements
     searchInput = document.getElementById('searchInput');
     categoryFilters = document.getElementById('categoryFilters');
     portfolioGrid = document.getElementById('portfolioGrid');
     noResults = document.getElementById('noResults');
     resetFiltersButton = document.getElementById('resetFilters');
+    
+    // Load portfolios
+    portfolios = await getPortfolios();
     
     // Setup event listeners
     setupEventListeners();
@@ -110,12 +121,16 @@ function setupEventListeners() {
 
 // Create Filters
 function createCategoryFilters() {
-    const categories = ['All', ...new Set(portfolios.map(p => p.category))];
+    // Get unique categories from portfolios array
+    const categories = ['All', ...new Set(portfolios.filter(p => p && p.category).map(p => p.category))];
     
+    // Clear existing filters
     categoryFilters.innerHTML = '';
+    
+    // Create filter buttons
     categories.forEach(category => {
         const button = document.createElement('button');
-        button.className = `filter-button ${category === 'All' ? 'active' : ''}`;
+        button.className = `filter-button ${category === currentCategory ? 'active' : ''}`;
         button.textContent = category;
         button.addEventListener('click', () => {
             currentCategory = category;
