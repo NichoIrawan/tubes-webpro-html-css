@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
-   
+
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -21,7 +23,8 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <a href="/Sections/Home/page.html"  class="btn btn-outline" onclick="navigateToWebsite()">Ke Website</a>
+                    <a href="/Sections/Home/page.html" class="btn btn-outline" onclick="navigateToWebsite()">Ke
+                        Website</a>
                     <a href="/Sections/Login_Register/login.html" class="btn btn-destructive" onclick="handleLogout()">
                         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -36,10 +39,10 @@
     </header>
 
     <div class="main-container">
-        
+
         <div class="stats-grid" id="statsGrid"></div>
 
-        
+
         <div class="tabs">
             <div class="tabs-list">
                 <button class="tab-trigger active" data-tab="overview">Overview</button>
@@ -55,7 +58,7 @@
                 <button class="tab-trigger" data-tab="quiz">Design Quiz</button>
             </div>
 
-           
+
             <div class="tab-content active" id="overview"></div>
             <div class="tab-content" id="portfolio"></div>
             <div class="tab-content" id="services"></div>
@@ -67,12 +70,14 @@
         </div>
     </div>
 
-  
+
     <div class="modal" id="modalContainer"></div>
-    
-   
+
+
     <div class="toast-container" id="toastContainer"></div>
 
+    <script src="user_admin.js"></script>
     <script src="admin.js"></script>
 </body>
+
 </html>
