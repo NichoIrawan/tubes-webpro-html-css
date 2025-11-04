@@ -13,8 +13,7 @@ class NavigationBar extends HTMLElement {
   }
 
   isLogin() {
-    // Placeholder for login check logic
-    return false; // Change this based on actual login status
+    return false;
   }
 
   render() {
@@ -110,5 +109,4 @@ class NavigationBar extends HTMLElement {
   }
 }
 
-// Register the custom element
 customElements.define("navigation-bar", NavigationBar);
