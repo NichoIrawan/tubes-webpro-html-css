@@ -730,26 +730,26 @@ function togglePortfolioHomepage(id) {
 }
 
 function toggleService(id) {
-  const service = state.services.find((s) => s.id === id);
-  service.isActive = !service.isActive;
-  if (!service.isActive) service.showOnHomepage = false;
-  localStorage.setItem("services", JSON.stringify(state.services));
-  renderServices();
-  showToast("Status layanan berhasil diubah!", "success");
+    const service = state.services.find((s) => s.id === id);
+    service.isActive = !service.isActive;
+    if (!service.isActive) service.showOnHomepage = false;
+    localStorage.setItem("services", JSON.stringify(state.services));
+    renderServices();
+    showToast("Status layanan berhasil diubah!", "success");
 }
 
 function editService(id) {
-  showToast("Edit service feature coming soon", "success");
+    showToast("Edit service feature coming soon", "success");
 }
 
 function deleteService(id) {
-  if (confirm("Hapus layanan ini?")) {
-    state.services = state.services.filter((s) => s.id !== id);
-    localStorage.setItem("services", JSON.stringify(state.services));
-    renderServices();
-    renderStats();
-    showToast("Layanan berhasil dihapus!", "success");
-  }
+    if (confirm("Hapus layanan ini?")) {
+        state.services = state.services.filter((s) => s.id !== id);
+        localStorage.setItem("services", JSON.stringify(state.services));
+        renderServices();
+        renderStats();
+        showToast("Layanan berhasil dihapus!", "success");
+    }
 }
 
 function openAddPortfolioModal() {
@@ -807,7 +807,7 @@ function openAddPortfolioModal() {
 }
 
 function openAddServiceModal() {
-  const modalHTML = `
+    const modalHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Tambah Layanan Baru</h3>
@@ -843,13 +843,13 @@ function openAddServiceModal() {
         </div>
     `;
 
-  const modal = document.getElementById("modalContainer");
-  modal.innerHTML = modalHTML;
-  modal.classList.add("active");
+    const modal = document.getElementById("modalContainer");
+    modal.innerHTML = modalHTML;
+    modal.classList.add("active");
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+    });
 }
 
 function savePortfolio() {
@@ -890,40 +890,90 @@ function savePortfolio() {
   showToast("Portfolio berhasil ditambahkan!", "success");
 }
 
-function saveService() {
-  const name = document.getElementById("serviceName").value.trim();
-  const description = document
-    .getElementById("serviceDescription")
-    .value.trim();
-  const price = document.getElementById("servicePrice").value.trim();
-  const duration = document.getElementById("serviceDuration").value.trim();
+async function saveService() {
+    try {
+        const form = document.getElementById("serviceForm");
+        const imageInput = document.getElementById("serviceImage");
 
-  if (!name || !description || !price || !duration) {
-    showToast("Semua field harus diisi!", "error");
-    return;
-  }
+        // Validate form
+        if (!form.checkValidity()) {
+            showToast("Mohon lengkapi semua field yang diperlukan", "error");
+            return;
+        }
 
-  const newService = {
-    id:
-      state.services.length > 0
-        ? Math.max(...state.services.map((s) => s.id)) + 1
-        : 1,
-    name,
-    description,
-    price,
-    duration,
-    isActive: true,
-    showOnHomepage: false,
-  };
+        // Get form values
+        const title = form.title.value.trim();
+        const description = form.description.value.trim();
+        const price = parseInt(form.price.value);
+        const duration = form.duration.value.trim();
+        const isActive = form.isActive.checked;
+        const showOnHomepage = form.showOnHomepage.checked;
 
-  state.services.push(newService);
-  localStorage.setItem("services", JSON.stringify(state.services));
-  window.dispatchEvent(new Event("servicesUpdated"));
+        // Handle image
+        let imageUrl = "";
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            imageUrl = await new Promise((resolve) => {
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(imageInput.files[0]);
+            });
+        } else {
+            showToast("Mohon pilih gambar untuk layanan", "error");
+            return;
+        }
 
-  closeModal();
-  renderServices();
-  renderStats();
-  showToast("Layanan berhasil ditambahkan!", "success");
+        // Create new service object
+        const newService = {
+            id: state.services.length > 0 ? Math.max(...state.services.map(s => s.id)) + 1 : 1,
+            title,
+            description,
+            image: imageUrl,
+            price,
+            duration,
+            isActive,
+            showOnHomepage
+        };
+
+        // Add to state
+        state.services.push(newService);
+
+        // Save to service.json
+        try {
+            const response = await fetch('../../data/service.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ services: state.services })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save to service.json');
+            }
+
+            // Also save to localStorage as backup
+            localStorage.setItem('services', JSON.stringify(state.services));
+            
+            // Update UI
+            closeModal();
+            renderServices();
+            renderStats();
+            showToast("Layanan berhasil ditambahkan!", "success");
+        } catch (error) {
+            console.error('Error saving to service.json:', error);
+            // Save to localStorage as fallback
+            localStorage.setItem('services', JSON.stringify(state.services));
+            showToast("Layanan disimpan ke local storage (offline mode)", "warning");
+            
+            // Still update UI
+            closeModal();
+            renderServices();
+            renderStats();
+        }
+    } catch (error) {
+        console.error('Error saving service:', error);
+        showToast("Gagal menyimpan layanan", "error");
+    }
 }
 
 function closeModal() {
@@ -1393,35 +1443,172 @@ function deleteService(id) {
 }
 
 function editService(id) {
-  const service = state.services.find((s) => s.id === id);
-  if (!service) return;
+    const service = state.services.find(s => s.id === id);
+    if (!service) return;
 
-  const newName = prompt("Ubah nama layanan:", service.name);
-  if (newName) {
-    service.name = newName;
-    saveToLocalStorage();
-    renderServices();
-  }
+    const modalHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Layanan</h3>
+                <button type="button" class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editServiceForm" class="form-grid">
+                    <input type="hidden" id="serviceId" value="${id}">
+                    
+                    <div class="form-group">
+                        <label for="editTitle">Nama Layanan</label>
+                        <input type="text" id="editTitle" name="title" required value="${service.title}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDescription">Deskripsi Layanan</label>
+                        <textarea id="editDescription" name="description" rows="4" required>${service.description}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editServiceImage">Gambar Layanan</label>
+                        <input type="file" id="editServiceImage" name="serviceImage" accept="image/*">
+                        <div id="editImagePreview" class="image-preview">
+                            <img src="${service.image}" alt="Current Image">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editPrice">Harga (dalam ribuan rupiah)</label>
+                        <input type="number" id="editPrice" name="price" required value="${service.price}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDuration">Durasi</label>
+                        <input type="text" id="editDuration" name="duration" required value="${service.duration}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="editIsActive" name="isActive" ${service.isActive ? 'checked' : ''}>
+                            Aktif
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="editShowOnHomepage" name="showOnHomepage" ${service.showOnHomepage ? 'checked' : ''}>
+                            Tampilkan di Homepage
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="updateService(${id})">Update Layanan</button>
+            </div>
+        </div>
+    `;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'serviceModal';
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
+
+    // Setup image preview for new image
+    const imageInput = document.getElementById('editServiceImage');
+    const imagePreview = document.getElementById('editImagePreview');
+
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    modal.style.display = 'block';
 }
 
 function openAddServiceModal() {
-  const name = prompt("Masukkan nama layanan baru:");
-  if (!name) return;
+    const modalHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Layanan Baru</h3>
+                <button type="button" class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Nama Layanan</label>
+                        <input type="text" id="title" name="title" required placeholder="Masukkan nama layanan">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Deskripsi Layanan</label>
+                        <textarea id="description" name="description" rows="4" required placeholder="Deskripsi detail tentang layanan"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceImage">Gambar Layanan</label>
+                        <input type="file" id="serviceImage" name="serviceImage" accept="image/*" required>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price">Harga (dalam ribuan rupiah)</label>
+                        <input type="number" id="price" name="price" required placeholder="Contoh: 500 untuk Rp 500.000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration">Durasi</label>
+                        <input type="text" id="duration" name="duration" required placeholder="Contoh: 2-4 weeks">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="isActive" name="isActive" checked>
+                            Aktif
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showOnHomepage" name="showOnHomepage">
+                            Tampilkan di Homepage
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="saveService()">Simpan Layanan</button>
+            </div>
+        </div>
+    `;
 
-  const newService = {
-    id: Date.now(),
-    name,
-    description: "Deskripsi singkat layanan.",
-    price: "Rp 0",
-    duration: "1 bulan",
-    isActive: true,
-    showOnHomepage: false,
-  };
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.id = "serviceModal";
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
 
-  state.services.push(newService);
-  saveToLocalStorage();
-  renderServices();
-  renderStats();
+    // Setup image preview
+    const imageInput = document.getElementById("serviceImage");
+    const imagePreview = document.getElementById("imagePreview");
+
+    imageInput.addEventListener("change", function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    modal.style.display = "block";
 }
 
 // ===================== Chat Functions =====================
