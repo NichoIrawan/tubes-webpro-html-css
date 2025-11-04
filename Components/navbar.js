@@ -13,8 +13,7 @@ class NavigationBar extends HTMLElement {
   }
 
   isLogin() {
-    // Placeholder for login check logic
-    return false; // Change this based on actual login status
+    return false;
   }
 
   render() {
@@ -85,10 +84,10 @@ class NavigationBar extends HTMLElement {
                     <li class="${this.isActive("/My_Projects")}">
                     <a href="/Sections/My_Projects/page.html">My Project</a>
                     </li>
-                    <li class="${this.isActive("/Portfolio")}">
-                        <a href="/Sections/Portfolio/page.html">Portfolio</a>
+                    <li class="${this.isActive("/Portofolio")}">
+                        <a href="/Sections/Portofolio/page.html">Portofolio</a>
                     </li>
-                    <li class="${this.isActive("/Services_page")}">
+                    <li class="${this.isActive("/Service_page")}">
                         <a href="/Sections/Service_page/service.html">Services</a>
                     </li>
                     <li class="${this.isActive("/About_Us")}">
@@ -110,5 +109,4 @@ class NavigationBar extends HTMLElement {
   }
 }
 
-// Register the custom element
 customElements.define("navigation-bar", NavigationBar);

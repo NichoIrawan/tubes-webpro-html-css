@@ -1,7 +1,3 @@
-import "../../Components/navbar.js";
-import "../../Components/footer.js";
-import "../../Components/chat.js";
-
 const settings = {
   basePrice: 2500000,
   serviceMultipliers: { interior: 1, architecture: 1.5, renovation: 1.2 },
@@ -35,7 +31,9 @@ function initCalculatorBindings() {
 
   function updateSliderBackground(slider) {
     const value = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-    slider.style.background = `linear-gradient(to right, #8cc55a 0%, #8cc55a ${value}%, #ddd ${value}%, #ddd 100%)`;
+    slider.style.background 
+    = `linear-gradient(to right, #8cc55a 0%,
+     #8cc55a ${value}%, #ddd ${value}%, #ddd 100%)`;
   }
 
   areaEl.addEventListener('input', () => {

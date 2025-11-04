@@ -1,0 +1,28 @@
+{
+  "portfolios": [
+    {
+      "id": 1,
+      "title": "Modern Minimalist House",
+      "category": "Residential",
+      "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+      "description": "A beautiful modern minimalist house with clean lines and open spaces",
+      "completedDate": "2025-09-15"
+    },
+    {
+      "id": 2,
+      "title": "Corporate Office Design",
+      "category": "Commercial",
+      "imageUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c",
+      "description": "Contemporary office space design for tech company with collaborative zones",
+      "completedDate": "2025-08-20"
+    },
+    {
+      "id": 3,
+      "title": "Luxury Villa Interior",
+      "category": "Interior",
+      "imageUrl": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "description": "High-end interior design for luxury villa with premium materials",
+      "completedDate": "2025-10-05"
+    }
+  ]
+}
