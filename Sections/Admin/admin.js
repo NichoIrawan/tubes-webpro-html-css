@@ -14,14 +14,45 @@ let state = {
 };
 
 // Initialize on page load
-document.addEventListener("DOMContentLoaded", () => {
-  loadInitialData();
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadInitialData();
   setupEventListeners();
   renderStats();
   renderAllTabs();
 });
 
-function loadInitialData() {
+// Service loader function
+async function loadServices() {
+  try {
+    // Using relative path from the current location
+    const response = await fetch('../../data/service.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    state.services = Array.isArray(data.services) ? data.services : [];
+    console.log('Services loaded:', state.services); // Debug log
+  } catch (error) {
+    console.error('Error loading services:', error);
+    // Fallback to localStorage if fetch fails
+    const storedServices = localStorage.getItem("services");
+    state.services = storedServices
+      ? JSON.parse(storedServices)
+      : [
+          {
+            id: 1,
+            name: "Desain Interior",
+            description: "Layanan desain interior lengkap untuk rumah dan kantor",
+            price: "Mulai dari Rp 10.000.000",
+            duration: "4 bulan",
+            isActive: true,
+            showOnHomepage: true,
+          },
+        ];
+  }
+}
+
+async function loadInitialData() {
+  await loadServices(); // Load services first
+  
   const storedPortfolios = localStorage.getItem("portfolios");
   state.portfolios = storedPortfolios
     ? JSON.parse(storedPortfolios)
@@ -36,22 +67,6 @@ function loadInitialData() {
           completedDate: "2025-09-15",
           showOnHomepage: true,
           isActive: true,
-        },
-      ];
-
-  // Load Services
-  const storedServices = localStorage.getItem("services");
-  state.services = storedServices
-    ? JSON.parse(storedServices)
-    : [
-        {
-          id: 1,
-          name: "Desain Interior",
-          description: "Layanan desain interior lengkap untuk rumah dan kantor",
-          price: "Mulai dari Rp 10.000.000",
-          duration: "2-4 bulan",
-          isActive: true,
-          showOnHomepage: true,
         },
       ];
 

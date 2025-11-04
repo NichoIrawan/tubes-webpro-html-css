@@ -1,0 +1,20 @@
+{
+    "services": [
+        {
+            "id": 1,
+            "title": "Web Development",
+            "description": "Professional web development services including frontend and backend development",
+            "image": "/Assets/images/web-dev.jpg",
+            "price": 500,
+            "duration": "2-4 weeks"
+        },
+        {
+            "id": 2,
+            "title": "Mobile App Development",
+            "description": "Custom mobile application development for iOS and Android platforms",
+            "image": "/Assets/images/mobile-dev.jpg",
+            "price": 800,
+            "duration": "4-8 weeks"
+        }
+    ]
+}
